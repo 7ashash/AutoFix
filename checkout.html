@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="checkout.css" />
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main class="checkout-page">
+    <section class="checkout-hero">
+      <div class="checkout-hero__content">
+        <span class="checkout-badge">Secure Checkout</span>
+        <h1>Complete Your Order</h1>
+        <p>Fill in your delivery details and choose your preferred payment method.</p>
+      </div>
+    </section>
+
+    <section class="checkout-layout">
+      <div class="checkout-form-card">
+        <div class="checkout-section-title">
+          <div>
+            <p class="checkout-section-title__eyebrow">Delivery Details</p>
+            <h2>Shipping Information</h2>
+          </div>
+        </div>
+
+        <div class="checkout-form">
+          <div class="form-grid">
+            <div class="input-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="input-group">
+              <label for="phone">Phone Number</label>
+              <input type="text" id="phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <div class="input-group input-group-full">
+              <label for="address">Address</label>
+              <input type="text" id="address" placeholder="Street, building, apartment..." required>
+            </div>
+
+            <div class="input-group input-group-full">
+              <label for="city">City</label>
+              <input type="text" id="city" placeholder="Enter your city" required>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <h2>Fulfillment Method</h2>
+            <p>Choose whether you want delivery to your address or pickup from the dealer.</p>
+          </div>
+
+          <div class="option-grid fulfillment-methods">
+            <button type="button" class="option option--selected" onclick="selectFulfillment('Delivery', event)">
+              <span class="option-icon">Drop</span>
+              <div class="option-text">
+                <strong>Delivery</strong>
+                <small>Shipping fee applies in the MVP flow</small>
+              </div>
+            </button>
+
+            <button type="button" class="option" onclick="selectFulfillment('Pickup', event)">
+              <span class="option-icon">Pick</span>
+              <div class="option-text">
+                <strong>Pickup</strong>
+                <small>Collect directly from the dealer location</small>
+              </div>
+            </button>
+          </div>
+
+          <div class="section-title">
+            <h2>Payment Method</h2>
+            <p>Select how you want to pay for your order.</p>
+          </div>
+
+          <div class="option-grid payment-methods">
+            <button type="button" class="option" onclick="selectPayment('Cash', event)">
+              <span class="option-icon">Cash</span>
+              <div class="option-text">
+                <strong>Cash</strong>
+                <small>Pay on delivery</small>
+              </div>
+            </button>
+
+            <button type="button" class="option" onclick="selectPayment('Card', event)">
+              <span class="option-icon">Card</span>
+              <div class="option-text">
+                <strong>Card</strong>
+                <small>Fast and secure</small>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="checkout-summary">
+        <div class="checkout-summary__card">
+          <div class="checkout-summary__top">
+            <div>
+              <p class="checkout-summary__eyebrow">Order Summary</p>
+              <h3>Review before confirm</h3>
+            </div>
+            <span class="checkout-summary__badge">AutoFix</span>
+          </div>
+
+          <div class="checkout-summary__rows">
+            <div class="summary-row">
+              <span>Fulfillment</span>
+              <span id="checkoutFulfillment">Delivery</span>
+            </div>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="checkoutSubtotal">0 EGP</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span id="checkoutShipping">15 EGP</span>
+            </div>
+            <div class="summary-row summary-row--total">
+              <span>Total</span>
+              <span id="checkoutTotal">0 EGP</span>
+            </div>
+          </div>
+
+          <p class="checkout-summary__note">
+            Checkout is simulated in this MVP, but the flow is designed to match the final experience.
+          </p>
+
+          <button type="button" class="confirm-btn" onclick="confirmOrder()">
+            Confirm Order
+          </button>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="commerce-api.js"></script>
+  <script src="checkout.js"></script>
+</body>
+</html>

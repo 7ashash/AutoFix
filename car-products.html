@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compatible Parts - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css">
+  <link rel="stylesheet" href="product.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="catalog-body">
+
+  <div id="site-header"></div>
+
+  <main class="catalog-page">
+    <section class="catalog-hero">
+      <div class="catalog-hero__content">
+        <a class="catalog-back-link" id="compatibleBackLink" href="model.html">
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to vehicle
+        </a>
+
+        <span class="catalog-eyebrow" id="carProductsEyebrow">Compatible Parts</span>
+        <h1 id="carProductsTitle">Compatible Products</h1>
+        <p id="carProductsSubtitle">AutoFix will show only the parts that match your selected vehicle.</p>
+
+        <div class="catalog-hero__meta">
+          <span class="catalog-meta-pill" id="selectedVehiclePill">Vehicle not selected</span>
+          <span class="catalog-meta-pill" id="selectedDealerPill">AutoFix fitment</span>
+          <span class="catalog-meta-pill" id="compatibleCountPill">0 parts</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog-section">
+      <div class="catalog-section__header">
+        <div>
+          <span class="catalog-step">Compatible Now</span>
+          <h2>Available parts for your vehicle</h2>
+          <p>Every item below is filtered to the selected brand, model, and manufactured year.</p>
+        </div>
+
+        <div class="catalog-section__count" id="compatibleCountLabel">0 parts</div>
+      </div>
+
+      <div class="compatible-grid" id="carProductsGrid"></div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="autofix-data.js"></script>
+  <script src="catalog-api.js"></script>
+  <script src="car-products.js"></script>
+</body>
+</html>

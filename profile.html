@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile</title>
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="profile.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="profile-page">
+    <div class="profile-shell">
+      <section class="profile-hero">
+        <div class="profile-hero__copy">
+          <span class="profile-hero__pill">Profile + Garage</span>
+          <h1>Keep your account and saved car ready.</h1>
+          <p>
+            Update your contact details once, save your vehicle profile, and let AutoFix
+            personalize parts search around your car automatically.
+          </p>
+        </div>
+      </section>
+
+      <section class="profile-layout">
+        <section class="profile-panel">
+        <div class="profile-panel__header">
+          <span class="profile-panel__eyebrow">Account details</span>
+          <h2>Manage your profile</h2>
+          <p>
+            You can edit your personal details and your saved vehicle anytime.
+          </p>
+          <div class="profile-panel__meta">
+            <span class="profile-panel__meta-chip" id="profileRoleBadge">Account</span>
+            <span class="profile-panel__meta-chip" id="profileStatusBadge">Active</span>
+          </div>
+          <p class="profile-panel__vehicle-note" id="profileVehicleNote">
+            Your saved car is ready to personalize parts search across AutoFix.
+          </p>
+        </div>
+
+        <form id="profileForm" class="profile-form">
+          <label class="profile-field">
+            <span>User Name</span>
+            <div class="profile-input-shell">
+              <i class="fa-regular fa-user"></i>
+              <input type="text" id="profileUsername" required />
+            </div>
+          </label>
+
+          <label class="profile-field">
+            <span>Email Address</span>
+            <div class="profile-input-shell">
+              <i class="fa-regular fa-envelope"></i>
+              <input type="email" id="profileEmail" required />
+            </div>
+          </label>
+
+          <label class="profile-field">
+            <span>Full Name</span>
+            <div class="profile-input-shell">
+              <i class="fa-regular fa-id-card"></i>
+              <input type="text" id="profileFullName" required />
+            </div>
+          </label>
+
+          <label class="profile-field">
+            <span>Phone Number</span>
+            <div class="profile-input-shell">
+              <i class="fa-solid fa-phone"></i>
+              <input type="text" id="profilePhone" />
+            </div>
+          </label>
+
+          <label class="profile-field profile-field--wide">
+            <span>Address</span>
+            <div class="profile-input-shell">
+              <i class="fa-solid fa-location-dot"></i>
+              <input type="text" id="profileAddressLine" placeholder="Street, building, apartment..." />
+            </div>
+          </label>
+
+          <label class="profile-field">
+            <span>City</span>
+            <div class="profile-input-shell">
+              <i class="fa-solid fa-city"></i>
+              <input type="text" id="profileCity" placeholder="Cairo, Giza, Alexandria..." />
+            </div>
+          </label>
+
+          <div class="profile-form__section-title profile-field--wide">Saved Vehicle</div>
+
+          <label class="profile-field">
+            <span>Car Brand</span>
+            <div class="profile-input-shell">
+              <i class="fa-solid fa-car-side"></i>
+              <select id="profileVehicleBrand" required>
+                <option value="">Select brand</option>
+              </select>
+            </div>
+          </label>
+
+          <label class="profile-field">
+            <span>Car Model</span>
+            <div class="profile-input-shell">
+              <i class="fa-solid fa-car"></i>
+              <select id="profileVehicleModel" required disabled>
+                <option value="">Select model</option>
+              </select>
+            </div>
+          </label>
+
+          <label class="profile-field profile-field--wide">
+            <span>Manufactured Year</span>
+            <div class="profile-input-shell">
+              <i class="fa-regular fa-calendar"></i>
+              <select id="profileVehicleYear" required disabled>
+                <option value="">Select year</option>
+              </select>
+            </div>
+          </label>
+
+          <div class="profile-form__actions profile-field--wide">
+            <p class="profile-form__status" id="profileFormStatus"></p>
+            <button type="submit" class="profile-submit">Save Profile</button>
+          </div>
+        </form>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="catalog-api.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Vehicle Model - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css">
+  <link rel="stylesheet" href="vehicles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="vehicle-browser-body">
+
+  <div id="site-header"></div>
+
+  <main class="vehicle-browser-page">
+    <section class="vehicle-hero">
+      <div class="vehicle-hero__content">
+        <a class="vehicle-back-link" id="vehicleBackLink" href="index.html#brandSelectionSection">
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to brand selection
+        </a>
+
+        <span class="vehicle-hero__eyebrow" id="vehicleHeroEyebrow">Vehicle Fitment</span>
+        <h1 id="vehicleHeroTitle">Choose your exact vehicle model</h1>
+        <p class="vehicle-hero__subtitle" id="vehicleHeroSubtitle">
+          Select the exact model first, then choose the manufactured year to unlock compatible spare parts only.
+        </p>
+
+        <div class="vehicle-hero__stats">
+          <div class="vehicle-hero__stat">
+            <strong id="availableModelsCount">0</strong>
+            <span>Available models</span>
+          </div>
+
+          <div class="vehicle-hero__stat">
+            <strong id="vehicleFlowLabel">Model to Year</strong>
+            <span>Vehicle-first flow</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle-hero__brand-card">
+        <div class="vehicle-hero__brand-logo-wrap">
+          <img id="brandHeroLogo" src="./pictures/autofix logo.png" alt="Selected brand">
+        </div>
+
+        <div class="vehicle-hero__brand-copy">
+          <p class="vehicle-hero__brand-label">Selected brand</p>
+          <h2 id="brandHeroName">AutoFix</h2>
+          <p id="brandHeroMeta">
+            Pick the exact model before moving to year and fitment-ready parts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="vehicle-section">
+      <div class="vehicle-section__header">
+        <div class="vehicle-section__intro">
+          <span class="vehicle-step">Step 1</span>
+          <h2 id="modelsSectionTitle">Pick your model</h2>
+          <p id="modelsSectionSubtitle">
+            Modern fitment starts here. Choose the exact vehicle generation before opening any parts.
+          </p>
+        </div>
+
+        <div class="vehicle-section__status" id="selectedModelStatus">
+          No model selected yet
+        </div>
+      </div>
+
+      <div class="models-grid" id="modelsContainer"></div>
+    </section>
+
+    <section class="vehicle-section vehicle-section--compact" id="yearSection">
+      <div class="vehicle-section__header">
+        <div class="vehicle-section__intro">
+          <span class="vehicle-step">Step 2</span>
+          <h2 id="yearSectionTitle">Choose manufactured year</h2>
+          <p>
+            Once you select the year, AutoFix opens the compatible products prepared for that vehicle.
+          </p>
+        </div>
+
+        <div class="vehicle-section__status vehicle-section__status--muted" id="selectedYearStatus">
+          Select a model first
+        </div>
+      </div>
+
+      <div class="years-grid" id="yearsContainer">
+        <button class="year">2020</button>
+        <button class="year">2021</button>
+        <button class="year">2022</button>
+        <button class="year">2023</button>
+        <button class="year">2024</button>
+        <button class="year">2025</button>
+        <button class="year">2026</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="autofix-data.js"></script>
+  <script src="catalog-api.js"></script>
+  <script src="model.js"></script>
+</body>
+</html>

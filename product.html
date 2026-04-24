@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css">
+  <link rel="stylesheet" href="product.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="catalog-body">
+
+  <div id="site-header"></div>
+
+  <main class="catalog-page product-page">
+    <section class="catalog-hero">
+      <div class="catalog-hero__content">
+        <a class="catalog-back-link" id="productBackLink" href="index.html">
+          <i class="fa-solid fa-arrow-left"></i>
+          Back
+        </a>
+
+        <span class="catalog-eyebrow" id="productHeroEyebrow">Product Details</span>
+        <h1 id="productHeroTitle">Product Details</h1>
+        <p id="productHeroSubtitle">See pricing, fitment context, and order details in a cleaner AutoFix layout.</p>
+
+        <div class="catalog-hero__meta">
+          <span class="catalog-meta-pill" id="productVehicleChip">Vehicle not selected</span>
+          <span class="catalog-meta-pill" id="productDealerChip">AutoFix catalog</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog-section product-selection-shell" id="productSelectionSection">
+      <div class="catalog-section__header">
+        <div>
+          <span class="catalog-step">Collection</span>
+          <h2 id="groupTitle">Products</h2>
+          <p id="groupSubtitle">Choose a variant or compare options inside this collection.</p>
+        </div>
+
+        <div class="catalog-section__count" id="groupCount">0 options</div>
+      </div>
+
+      <div class="product-options-grid" id="productsGrid"></div>
+    </section>
+
+    <section class="catalog-section product-detail-shell" id="productDetails">
+      <div class="product-detail-layout">
+        <div class="product-media-card">
+          <div class="product-media-card__stage">
+            <img id="productImg" alt="Product image" />
+          </div>
+
+          <div class="product-media-card__badges">
+            <span class="detail-chip" id="productTypeBadge">Type</span>
+            <span class="detail-chip detail-chip--soft" id="productContextChip">Fitment</span>
+          </div>
+        </div>
+
+        <div class="product-summary-card">
+          <span class="catalog-step" id="productContextLabel">Ready to order</span>
+          <h2 id="productName">Product name</h2>
+          <p id="productDesc">Product description</p>
+
+          <div class="product-info-grid">
+            <div class="product-info-card">
+              <span>Type</span>
+              <strong id="productType">Original</strong>
+            </div>
+
+            <div class="product-info-card">
+              <span>Rating</span>
+              <strong id="productRating">4.5</strong>
+            </div>
+
+            <div class="product-info-card">
+              <span>Vehicle</span>
+              <strong id="productVehicleContext">Not selected</strong>
+            </div>
+
+            <div class="product-info-card">
+              <span>Source</span>
+              <strong id="productDealerContext">AutoFix catalog</strong>
+            </div>
+          </div>
+
+          <div class="product-price-wrap">
+            <h3 id="productPrice">0 EGP</h3>
+            <p id="productPriceNote">Checkout is simulated in this MVP and follows the final AutoFix flow.</p>
+          </div>
+
+          <div class="product-actions">
+            <button class="primary-action" onclick="addToCart()">Add to cart</button>
+            <button class="secondary-action" onclick="verify()">Verify authenticity</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="autofix-data.js"></script>
+  <script src="catalog-api.js"></script>
+  <script src="commerce-api.js"></script>
+  <script src="product.js"></script>
+</body>
+</html>

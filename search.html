@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Parts - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="search.css" />
+</head>
+<body class="search-page-body">
+
+  <div id="site-header"></div>
+
+  <main class="search-page">
+    <section class="search-hero">
+      <div class="search-hero__content">
+        <a class="search-back-link" href="index.html#replacementSection">Back to shop</a>
+        <span class="search-eyebrow">Smart Search</span>
+        <h1 id="searchHeroTitle">Find the right part faster</h1>
+        <p id="searchHeroSubtitle">
+          Search across replacement parts, accessories, fluids, tools, and performance upgrades,
+          then continue through the correct AutoFix flow.
+        </p>
+
+        <div class="search-hero__meta">
+          <span class="search-meta-pill" id="searchVehicleChip">Vehicle not selected</span>
+          <span class="search-meta-pill" id="searchCountChip">0 results</span>
+        </div>
+
+        <form class="search-form" id="searchForm">
+          <input type="text" id="searchPageInput" placeholder="Search part name, category, or keyword" />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="search-results-card">
+      <div class="search-results-card__header">
+        <div>
+          <span class="search-step">Search Results</span>
+          <h2 id="searchSectionTitle">AutoFix results</h2>
+          <p id="searchSectionSubtitle">
+            Vehicle-ready parts will take you through the compatibility-first flow. General catalog items open directly.
+          </p>
+        </div>
+
+        <div class="search-status-pill" id="searchStatusPill">0 results</div>
+      </div>
+
+      <div class="search-grid" id="results"></div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="autofix-data.js"></script>
+  <script src="catalog-api.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>

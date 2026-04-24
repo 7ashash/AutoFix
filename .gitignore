@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-ssr/
+_asset-cache/
+backend/mysql-runtime/
+.zip
+.pdb
+*.exe
+.env
+backend/.env

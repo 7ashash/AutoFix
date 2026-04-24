@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dealer Dashboard - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png" />
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="dealer-dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="dealer-dashboard-body">
+  <div id="site-header"></div>
+
+  <main class="dealer-dashboard-page">
+    <section class="dealer-hero">
+      <div class="dealer-hero__copy">
+        <span class="dealer-chip dealer-chip--hero">Dealer Control Center</span>
+        <h1 id="dealerHeroTitle">Loading dealer workspace...</h1>
+        <p id="dealerHeroDescription">
+          AutoFix is preparing your scoped operational dashboard with inventory, orders,
+          promotions, customers, shipping, and support workflows.
+        </p>
+        <div class="dealer-hero__pills" id="dealerHeroPills"></div>
+      </div>
+
+      <div class="dealer-hero__actions">
+        <button class="dealer-btn dealer-btn--primary" type="button" id="dealerRefreshBtn">
+          <i class="fa-solid fa-rotate-right"></i>
+          <span>Refresh dashboard</span>
+        </button>
+        <a class="dealer-btn dealer-btn--soft" href="dealers.html">
+          <i class="fa-solid fa-store"></i>
+          <span>Public dealers page</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="dealer-toolbar">
+      <div class="dealer-toolbar__header">
+        <div>
+          <span class="dealer-chip">Scope</span>
+          <h2 id="dealerScopeHeading">Loading current dealer scope...</h2>
+          <p id="dealerScopeDescription">
+            This dashboard is filtered to the dealer assignment and brand permissions linked to your account.
+          </p>
+        </div>
+
+        <div class="dealer-toolbar__controls">
+          <label class="dealer-field dealer-field--inline" id="dealerSwitchField" hidden>
+            <span>Preview dealer</span>
+            <select id="dealerSwitch"></select>
+          </label>
+          <button class="dealer-btn dealer-btn--ghost" type="button" id="dealerResetProductBtn">
+            <i class="fa-solid fa-file-circle-plus"></i>
+            <span>New product</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="dealer-tabbar" id="dealerTabbar">
+        <button class="dealer-tab is-active" type="button" data-target="overview">Overview</button>
+        <button class="dealer-tab" type="button" data-target="products">Products</button>
+        <button class="dealer-tab" type="button" data-target="orders">Orders</button>
+        <button class="dealer-tab" type="button" data-target="promotions">Offers & Coupons</button>
+        <button class="dealer-tab" type="button" data-target="customers">Customers</button>
+        <button class="dealer-tab" type="button" data-target="operations">Operations</button>
+      </div>
+    </section>
+
+    <section class="dealer-kpis" id="dealerKpis"></section>
+
+    <div class="dealer-sections">
+      <section class="dealer-section" id="overview">
+        <div class="dealer-section__header">
+          <div>
+            <span class="dealer-chip">Overview</span>
+            <h2>Live business picture</h2>
+          </div>
+        </div>
+
+        <div class="dealer-grid dealer-grid--overview">
+          <div class="dealer-overview-column">
+            <article class="dealer-card">
+              <div class="dealer-card__header">
+                <div>
+                  <span class="dealer-card__eyebrow">Alerts</span>
+                  <h3>Notifications</h3>
+                </div>
+              </div>
+              <div id="dealerOverviewNotifications" class="dealer-stack"></div>
+            </article>
+
+            <article class="dealer-card">
+              <div class="dealer-card__header">
+                <div>
+                  <span class="dealer-card__eyebrow">Inventory pulse</span>
+                  <h3>Recent movements</h3>
+                </div>
+              </div>
+              <div id="dealerInventoryMovements" class="dealer-stack"></div>
+            </article>
+          </div>
+
+          <div class="dealer-overview-column">
+            <article class="dealer-card">
+              <div class="dealer-card__header">
+                <div>
+                  <span class="dealer-card__eyebrow">Sales analytics</span>
+                  <h3>Top products & peak times</h3>
+                </div>
+              </div>
+              <div id="dealerAnalyticsHighlights" class="dealer-stack"></div>
+            </article>
+
+            <article class="dealer-card">
+              <div class="dealer-card__header">
+                <div>
+                  <span class="dealer-card__eyebrow">Low stock</span>
+                  <h3>Restock now</h3>
+                </div>
+              </div>
+              <div id="dealerLowStockList" class="dealer-stack"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="dealer-section" id="products">
+        <div class="dealer-section__header">
+          <div>
+            <span class="dealer-chip">Products</span>
+            <h2>Catalog, specs, fitment, and stock</h2>
+          </div>
+        </div>
+
+          <div class="dealer-products-layout">
+            <div class="dealer-products-main">
+            <article class="dealer-card">
+              <div class="dealer-card__header">
+                <div>
+                  <span class="dealer-card__eyebrow">Inventory catalog</span>
+                  <h3>Dealer products</h3>
+                </div>
+              </div>
+              <div class="dealer-inventory-toolbar">
+                <div class="dealer-inventory-filters">
+                  <label class="dealer-field dealer-field--compact">
+                    <span>Brand</span>
+                    <select id="dealerInventoryBrandFilter" class="dealer-select"></select>
+                  </label>
+                  <label class="dealer-field dealer-field--compact">
+                    <span>Model</span>
+                    <select id="dealerInventoryModelFilter" class="dealer-select"></select>
+                  </label>
+                  <label class="dealer-field dealer-field--compact">
+                    <span>Year</span>
+                    <select id="dealerInventoryYearFilter" class="dealer-select"></select>
+                  </label>
+                </div>
+                <div class="dealer-card__tools dealer-card__tools--inventory">
+                  <input id="dealerInventorySearch" class="dealer-input dealer-input--compact" type="search" placeholder="Search by name, part number, or category" />
+                </div>
+              </div>
+              <p id="dealerInventoryCount" class="dealer-helper dealer-helper--inventory"></p>
+              <div id="dealerInventoryList" class="dealer-inventory-list"></div>
+            </article>
+
+            <article class="dealer-card">
+              <div class="dealer-card__header">
+                <div>
+                  <span class="dealer-card__eyebrow">Bulk import</span>
+                  <h3>Paste inventory file rows</h3>
+                </div>
+              </div>
+              <form id="dealerImportForm" class="dealer-form">
+                <label class="dealer-field">
+                  <span>Mode</span>
+                  <select id="dealerImportMode" class="dealer-select">
+                    <option value="delta">Delta update</option>
+                    <option value="replace">Replace quantity</option>
+                  </select>
+                </label>
+                <label class="dealer-field">
+                  <span>Rows</span>
+                  <textarea id="dealerImportRows" class="dealer-textarea" rows="6" placeholder="partNumber,quantity,unitCost,note"></textarea>
+                </label>
+                <button class="dealer-btn dealer-btn--primary" type="submit">Import stock rows</button>
+                <p class="dealer-helper">Use CSV lines: <code>partNumber,quantity,unitCost,note</code></p>
+              </form>
+            </article>
+
+            <article class="dealer-card">
+              <div class="dealer-card__header">
+                <div>
+                  <span class="dealer-card__eyebrow">Stock actions</span>
+                  <h3>Manual quantity updates</h3>
+                </div>
+              </div>
+
+              <form id="dealerStockForm" class="dealer-form">
+                <label class="dealer-field">
+                  <span>Product</span>
+                  <select id="dealerStockPart" class="dealer-select"></select>
+                </label>
+                <div class="dealer-form__grid">
+                  <label class="dealer-field">
+                    <span>Movement type</span>
+                    <select id="dealerStockType" class="dealer-select">
+                      <option value="manual_adjustment">Manual adjustment</option>
+                      <option value="restock">Restock</option>
+                      <option value="correction">Correction</option>
+                      <option value="import">Import</option>
+                    </select>
+                  </label>
+                  <label class="dealer-field">
+                    <span>Quantity delta</span>
+                    <input id="dealerStockDelta" class="dealer-input" type="number" step="1" />
+                  </label>
+                  <label class="dealer-field">
+                    <span>Replace with quantity</span>
+                    <input id="dealerStockReplace" class="dealer-input" type="number" step="1" min="0" />
+                  </label>
+                  <label class="dealer-field">
+                    <span>Unit cost</span>
+                    <input id="dealerStockUnitCost" class="dealer-input" type="number" min="0" step="0.01" />
+                  </label>
+                </div>
+                <label class="dealer-field">
+                  <span>Note</span>
+                  <input id="dealerStockNote" class="dealer-input" type="text" />
+                </label>
+                <button class="dealer-btn dealer-btn--primary" type="submit">Apply stock update</button>
+              </form>
+            </article>
+          </div>
+
+            <aside id="dealerProductEditorRail" class="dealer-products-rail">
+              <div id="dealerProductEditorPanel" class="dealer-products-editor-fixed">
+                <article class="dealer-card dealer-product-editor-card">
+                <div class="dealer-card__header">
+                  <div>
+                    <span class="dealer-card__eyebrow">Editor</span>
+                    <h3 id="dealerProductFormTitle">Create new product</h3>
+                  </div>
+              </div>
+
+              <form id="dealerProductForm" class="dealer-form">
+                <input type="hidden" id="dealerProductId" />
+                <div class="dealer-form__grid">
+                  <label class="dealer-field">
+                    <span>Product name</span>
+                    <input id="dealerProductName" class="dealer-input" type="text" required />
+                  </label>
+                  <label class="dealer-field">
+                    <span>Part number</span>
+                    <input id="dealerProductPartNumber" class="dealer-input" type="text" required />
+                  </label>
+                  <label class="dealer-field">
+                    <span>Brand</span>
+                    <select id="dealerProductBrand" class="dealer-select" required></select>
+                  </label>
+                  <label class="dealer-field">
+                    <span>Category</span>
+                    <select id="dealerProductCategory" class="dealer-select"></select>
+                  </label>
+                  <label class="dealer-field">
+                    <span>Type</span>
+                    <select id="dealerProductType" class="dealer-select">
+                      <option value="original">Original</option>
+                      <option value="aftermarket">Aftermarket</option>
+                    </select>
+                  </label>
+                  <label class="dealer-field">
+                    <span>Price (EGP)</span>
+                    <input id="dealerProductPrice" class="dealer-input" type="number" min="0" step="0.01" required />
+                  </label>
+                  <label class="dealer-field">
+                    <span>Initial / current stock</span>
+                    <input id="dealerProductStock" class="dealer-input" type="number" min="0" step="1" required />
+                  </label>
+                  <label class="dealer-field">
+                    <span>Manufacturer</span>
+                    <input id="dealerProductManufacturer" class="dealer-input" type="text" />
+                  </label>
+                  <label class="dealer-field">
+                    <span>Warranty (months)</span>
+                    <input id="dealerProductWarranty" class="dealer-input" type="number" min="0" step="1" />
+                  </label>
+                  <label class="dealer-field">
+                    <span>Serial number</span>
+                    <input id="dealerProductSerial" class="dealer-input" type="text" />
+                  </label>
+                </div>
+
+                <label class="dealer-field">
+                  <span>Description</span>
+                  <textarea id="dealerProductDescription" class="dealer-textarea" rows="3"></textarea>
+                </label>
+
+                <label class="dealer-field">
+                  <span>Image URLs</span>
+                  <textarea id="dealerProductImages" class="dealer-textarea" rows="3" placeholder="One URL per line"></textarea>
+                </label>
+
+                <label class="dealer-field">
+                  <span>Technical specs</span>
+                  <textarea id="dealerProductSpecs" class="dealer-textarea" rows="4" placeholder="Example&#10;voltage: 12V&#10;capacity: 70Ah"></textarea>
+                </label>
+
+                <div class="dealer-field">
+                  <div class="dealer-field__row">
+                    <span>Fitment coverage</span>
+                    <button class="dealer-link-btn" type="button" id="dealerAddFitmentBtn">
+                      <i class="fa-solid fa-plus"></i>
+                      <span>Add fitment</span>
+                    </button>
+                  </div>
+                  <div id="dealerFitmentRows" class="dealer-fitments"></div>
+                </div>
+
+                  <div class="dealer-form__actions">
+                    <button class="dealer-btn dealer-btn--primary" type="submit">
+                      <i class="fa-solid fa-floppy-disk"></i>
+                      <span>Save product</span>
+                    </button>
+                  <button class="dealer-btn dealer-btn--ghost" type="button" id="dealerProductResetBtn">Reset</button>
+                  <button class="dealer-btn dealer-btn--danger" type="button" id="dealerProductArchiveBtn" hidden>Archive product</button>
+                    <button class="dealer-btn dealer-btn--outline" type="button" id="dealerProductDeleteBtn" hidden>Hard delete</button>
+                  </div>
+                </form>
+                </article>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+      <section class="dealer-section" id="orders">
+        <div class="dealer-section__header">
+          <div>
+            <span class="dealer-chip">Orders</span>
+            <h2>Customer orders and shipping flow</h2>
+          </div>
+        </div>
+
+        <div class="dealer-grid dealer-grid--orders">
+          <article class="dealer-card dealer-card--span-2">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Order board</span>
+                <h3>Incoming routed orders</h3>
+              </div>
+            </div>
+            <div id="dealerOrdersBoard" class="dealer-orders-board"></div>
+          </article>
+
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Shipping</span>
+                <h3>Active carriers</h3>
+              </div>
+            </div>
+            <div id="dealerShippingSummary" class="dealer-stack"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="dealer-section" id="promotions">
+        <div class="dealer-section__header">
+          <div>
+            <span class="dealer-chip">Offers & Coupons</span>
+            <h2>Discount operations</h2>
+          </div>
+        </div>
+
+        <div class="dealer-grid dealer-grid--promotions">
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Offer builder</span>
+                <h3>Create or update offer</h3>
+              </div>
+            </div>
+            <form id="dealerOfferForm" class="dealer-form">
+              <input type="hidden" id="dealerOfferId" />
+              <div class="dealer-form__grid">
+                <label class="dealer-field">
+                  <span>Title</span>
+                  <input id="dealerOfferTitle" class="dealer-input" type="text" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Scope type</span>
+                  <select id="dealerOfferScopeType" class="dealer-select">
+                    <option value="part">Product</option>
+                    <option value="category">Category</option>
+                  </select>
+                </label>
+                <label class="dealer-field">
+                  <span>Product</span>
+                  <select id="dealerOfferPart" class="dealer-select"></select>
+                </label>
+                <label class="dealer-field">
+                  <span>Category</span>
+                  <select id="dealerOfferCategory" class="dealer-select"></select>
+                </label>
+                <label class="dealer-field">
+                  <span>Discount type</span>
+                  <select id="dealerOfferDiscountType" class="dealer-select">
+                    <option value="percentage">Percentage</option>
+                    <option value="fixed">Fixed</option>
+                  </select>
+                </label>
+                <label class="dealer-field">
+                  <span>Discount value</span>
+                  <input id="dealerOfferDiscountValue" class="dealer-input" type="number" min="0" step="0.01" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Starts at</span>
+                  <input id="dealerOfferStartsAt" class="dealer-input" type="datetime-local" />
+                </label>
+                <label class="dealer-field">
+                  <span>Ends at</span>
+                  <input id="dealerOfferEndsAt" class="dealer-input" type="datetime-local" />
+                </label>
+              </div>
+              <label class="dealer-field">
+                <span>Description</span>
+                <textarea id="dealerOfferDescription" class="dealer-textarea" rows="3"></textarea>
+              </label>
+              <label class="dealer-field dealer-field--checkbox">
+                <input id="dealerOfferActive" type="checkbox" checked />
+                <span>Active offer</span>
+              </label>
+              <div class="dealer-form__actions">
+                <button class="dealer-btn dealer-btn--primary" type="submit">Save offer</button>
+                <button class="dealer-btn dealer-btn--ghost" type="button" id="dealerOfferResetBtn">Reset</button>
+              </div>
+            </form>
+            <div id="dealerOffersList" class="dealer-stack dealer-stack--spaced"></div>
+          </article>
+
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Coupon builder</span>
+                <h3>Create targeted coupon</h3>
+              </div>
+            </div>
+            <form id="dealerCouponForm" class="dealer-form">
+              <input type="hidden" id="dealerCouponId" />
+              <div class="dealer-form__grid">
+                <label class="dealer-field">
+                  <span>Code</span>
+                  <input id="dealerCouponCode" class="dealer-input" type="text" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Title</span>
+                  <input id="dealerCouponTitle" class="dealer-input" type="text" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Discount type</span>
+                  <select id="dealerCouponDiscountType" class="dealer-select">
+                    <option value="percentage">Percentage</option>
+                    <option value="fixed">Fixed</option>
+                  </select>
+                </label>
+                <label class="dealer-field">
+                  <span>Discount value</span>
+                  <input id="dealerCouponDiscountValue" class="dealer-input" type="number" min="0" step="0.01" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Minimum order value</span>
+                  <input id="dealerCouponMinimumOrderValue" class="dealer-input" type="number" min="0" step="0.01" />
+                </label>
+                <label class="dealer-field">
+                  <span>Usage limit</span>
+                  <input id="dealerCouponUsageLimit" class="dealer-input" type="number" min="1" step="1" />
+                </label>
+                <label class="dealer-field">
+                  <span>Starts at</span>
+                  <input id="dealerCouponStartsAt" class="dealer-input" type="datetime-local" />
+                </label>
+                <label class="dealer-field">
+                  <span>Ends at</span>
+                  <input id="dealerCouponEndsAt" class="dealer-input" type="datetime-local" />
+                </label>
+              </div>
+              <label class="dealer-field">
+                <span>Description</span>
+                <textarea id="dealerCouponDescription" class="dealer-textarea" rows="3"></textarea>
+              </label>
+              <label class="dealer-field">
+                <span>Target customer emails</span>
+                <textarea id="dealerCouponTargets" class="dealer-textarea" rows="3" placeholder="One email per line"></textarea>
+              </label>
+              <label class="dealer-field dealer-field--checkbox">
+                <input id="dealerCouponActive" type="checkbox" checked />
+                <span>Active coupon</span>
+              </label>
+              <div class="dealer-form__actions">
+                <button class="dealer-btn dealer-btn--primary" type="submit">Save coupon</button>
+                <button class="dealer-btn dealer-btn--ghost" type="button" id="dealerCouponResetBtn">Reset</button>
+              </div>
+            </form>
+            <div id="dealerCouponsList" class="dealer-stack dealer-stack--spaced"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="dealer-section" id="customers">
+        <div class="dealer-section__header">
+          <div>
+            <span class="dealer-chip">Customers</span>
+            <h2>Customers, alerts, and feedback</h2>
+          </div>
+        </div>
+
+        <div class="dealer-grid dealer-grid--customers">
+          <article class="dealer-card dealer-card--span-2">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Customer list</span>
+                <h3>Who bought from this dealer</h3>
+              </div>
+            </div>
+            <div id="dealerCustomersList" class="dealer-customer-list"></div>
+          </article>
+
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Campaigns</span>
+                <h3>Send customer notification</h3>
+              </div>
+            </div>
+            <form id="dealerCustomerNotifyForm" class="dealer-form">
+              <label class="dealer-field">
+                <span>Title</span>
+                <input id="dealerCustomerNotifyTitle" class="dealer-input" type="text" required />
+              </label>
+              <label class="dealer-field">
+                <span>Message</span>
+                <textarea id="dealerCustomerNotifyMessage" class="dealer-textarea" rows="4" required></textarea>
+              </label>
+              <div class="dealer-field">
+                <span>Customers</span>
+                <div id="dealerCustomerTargets" class="dealer-checkbox-list"></div>
+              </div>
+              <button class="dealer-btn dealer-btn--primary" type="submit">Send notification</button>
+            </form>
+          </article>
+
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Alerts</span>
+                <h3>Dealer notifications</h3>
+              </div>
+            </div>
+            <div id="dealerNotificationsList" class="dealer-stack dealer-stack--spaced"></div>
+          </article>
+
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Feedback</span>
+                <h3>Ratings and complaints</h3>
+              </div>
+            </div>
+            <div id="dealerFeedbackList" class="dealer-stack dealer-stack--spaced"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="dealer-section" id="operations">
+        <div class="dealer-section__header">
+          <div>
+            <span class="dealer-chip">Operations</span>
+            <h2>Shipping, team, account, and support</h2>
+          </div>
+        </div>
+
+        <div class="dealer-grid dealer-grid--operations">
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Shipping</span>
+                <h3>Shipping methods</h3>
+              </div>
+            </div>
+            <form id="dealerShippingForm" class="dealer-form">
+              <input type="hidden" id="dealerShippingId" />
+              <div class="dealer-form__grid">
+                <label class="dealer-field">
+                  <span>Carrier name</span>
+                  <input id="dealerShippingCarrierName" class="dealer-input" type="text" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Region</span>
+                  <input id="dealerShippingRegionName" class="dealer-input" type="text" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Base fee</span>
+                  <input id="dealerShippingBaseFee" class="dealer-input" type="number" min="0" step="0.01" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Fee per item</span>
+                  <input id="dealerShippingFeePerItem" class="dealer-input" type="number" min="0" step="0.01" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Min days</span>
+                  <input id="dealerShippingMinDays" class="dealer-input" type="number" min="1" step="1" />
+                </label>
+                <label class="dealer-field">
+                  <span>Max days</span>
+                  <input id="dealerShippingMaxDays" class="dealer-input" type="number" min="1" step="1" />
+                </label>
+              </div>
+              <label class="dealer-field dealer-field--checkbox">
+                <input id="dealerShippingActive" type="checkbox" checked />
+                <span>Method active</span>
+              </label>
+              <div class="dealer-form__actions">
+                <button class="dealer-btn dealer-btn--primary" type="submit">Save shipping method</button>
+                <button class="dealer-btn dealer-btn--ghost" type="button" id="dealerShippingResetBtn">Reset</button>
+              </div>
+            </form>
+            <div id="dealerShippingMethodsList" class="dealer-stack dealer-stack--spaced"></div>
+          </article>
+
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Team access</span>
+                <h3>Manage staff</h3>
+              </div>
+            </div>
+            <form id="dealerStaffForm" class="dealer-form">
+              <input type="hidden" id="dealerStaffUserId" />
+              <label class="dealer-field">
+                <span>Staff email</span>
+                <input id="dealerStaffEmail" class="dealer-input" type="email" required />
+              </label>
+              <label class="dealer-field">
+                <span>Allowed brands</span>
+                <div id="dealerStaffBrands" class="dealer-checkbox-list"></div>
+              </label>
+              <label class="dealer-field">
+                <span>Permissions</span>
+                <div class="dealer-checkbox-list dealer-checkbox-list--dense">
+                  <label><input type="checkbox" id="dealerStaffPermissionInventory" checked /> Inventory</label>
+                  <label><input type="checkbox" id="dealerStaffPermissionOrders" checked /> Orders</label>
+                  <label><input type="checkbox" id="dealerStaffPermissionVerification" checked /> Verification</label>
+                  <label><input type="checkbox" id="dealerStaffPermissionAnalytics" checked /> Analytics</label>
+                </div>
+              </label>
+              <label class="dealer-field">
+                <span>Access status</span>
+                <select id="dealerStaffStatus" class="dealer-select">
+                  <option value="active">Active</option>
+                  <option value="pending_approval">Pending approval</option>
+                  <option value="suspended">Suspended</option>
+                </select>
+              </label>
+              <div class="dealer-form__actions">
+                <button class="dealer-btn dealer-btn--primary" type="submit">Save staff access</button>
+                <button class="dealer-btn dealer-btn--ghost" type="button" id="dealerStaffResetBtn">Reset</button>
+              </div>
+            </form>
+            <div id="dealerStaffList" class="dealer-stack dealer-stack--spaced"></div>
+          </article>
+
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Dealer account</span>
+                <h3>Profile details</h3>
+              </div>
+            </div>
+            <form id="dealerProfileForm" class="dealer-form">
+              <div class="dealer-form__grid">
+                <label class="dealer-field">
+                  <span>Dealer name</span>
+                  <input id="dealerProfileName" class="dealer-input" type="text" required />
+                </label>
+                <label class="dealer-field">
+                  <span>Location</span>
+                  <input id="dealerProfileLocation" class="dealer-input" type="text" />
+                </label>
+                <label class="dealer-field">
+                  <span>Contact email</span>
+                  <input id="dealerProfileEmail" class="dealer-input" type="email" />
+                </label>
+                <label class="dealer-field">
+                  <span>Contact phone</span>
+                  <input id="dealerProfilePhone" class="dealer-input" type="text" />
+                </label>
+              </div>
+              <label class="dealer-field">
+                <span>Description</span>
+                <textarea id="dealerProfileDescription" class="dealer-textarea" rows="4"></textarea>
+              </label>
+              <button class="dealer-btn dealer-btn--primary" type="submit">Save dealer profile</button>
+            </form>
+          </article>
+
+          <article class="dealer-card">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Support</span>
+                <h3>Platform support</h3>
+              </div>
+            </div>
+            <form id="dealerSupportForm" class="dealer-form">
+              <label class="dealer-field">
+                <span>Subject</span>
+                <input id="dealerSupportSubject" class="dealer-input" type="text" required />
+              </label>
+              <label class="dealer-field">
+                <span>Priority</span>
+                <select id="dealerSupportPriority" class="dealer-select">
+                  <option value="low">Low</option>
+                  <option value="normal" selected>Normal</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <label class="dealer-field">
+                <span>Message</span>
+                <textarea id="dealerSupportMessage" class="dealer-textarea" rows="4" required></textarea>
+              </label>
+              <button class="dealer-btn dealer-btn--primary" type="submit">Submit support ticket</button>
+            </form>
+            <div id="dealerSupportTickets" class="dealer-stack dealer-stack--spaced"></div>
+          </article>
+
+          <article class="dealer-card dealer-card--span-2">
+            <div class="dealer-card__header">
+              <div>
+                <span class="dealer-card__eyebrow">Help center</span>
+                <h3>Knowledge base</h3>
+              </div>
+            </div>
+            <div id="dealerHelpArticles" class="dealer-help-grid"></div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="catalog-api.js"></script>
+  <script src="dealer-dashboard.js"></script>
+</body>
+</html>

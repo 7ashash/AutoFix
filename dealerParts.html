@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dealer Vehicles - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="vehicles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="vehicle-browser-body">
+
+  <div id="site-header"></div>
+
+  <main class="vehicle-browser-page">
+    <section class="vehicle-hero">
+      <div class="vehicle-hero__content">
+        <a class="vehicle-back-link" href="dealers.html">
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to dealers
+        </a>
+
+        <span class="vehicle-hero__eyebrow">Dealer Vehicle Access</span>
+        <h1 id="dealerTitle">Dealer Vehicles</h1>
+        <p class="vehicle-hero__subtitle" id="dealerSubtitle">
+          Choose a supported brand first, then continue to model and year before browsing spare parts.
+        </p>
+
+        <div class="vehicle-hero__stats">
+          <div class="vehicle-hero__stat">
+            <strong id="dealerBrandsCount">0</strong>
+            <span>Supported brands</span>
+          </div>
+
+          <div class="vehicle-hero__stat">
+            <strong>Brand to Model to Year</strong>
+            <span>Fitment-first dealer flow</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle-hero__brand-card">
+        <div class="vehicle-hero__brand-logo-wrap vehicle-hero__brand-logo-wrap--photo">
+          <img id="dealerHeroImage" src="./pictures/autofix logo.png" alt="Dealer">
+        </div>
+
+        <div class="vehicle-hero__brand-copy">
+          <p class="vehicle-hero__brand-label">Selected dealer</p>
+          <h2 id="dealerHeroName">AutoFix</h2>
+          <p id="dealerHeroMeta">
+            Choose one of the supported brands to continue through the vehicle fitment flow.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="vehicle-section">
+      <div class="vehicle-section__header">
+        <div class="vehicle-section__intro">
+          <span class="vehicle-step">Step 1</span>
+          <h2>Supported Car Brands</h2>
+          <p class="vehicle-flow-note">
+            Pick a brand below. The next screen will show only the available models, then you choose the manufactured year before viewing compatible spare parts.
+          </p>
+        </div>
+
+        <div class="vehicle-section__status">
+          Dealer to Brand to Model to Year to Parts
+        </div>
+      </div>
+
+      <div class="vehicle-brand-grid" id="partsSections"></div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="autofix-data.js"></script>
+  <script src="catalog-api.js"></script>
+  <script src="dealer-parts.js"></script>
+</body>
+</html>

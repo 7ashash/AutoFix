@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authenticity Verification - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="verify.css" />
+</head>
+<body class="verify-page-body">
+
+  <div id="site-header"></div>
+
+  <main class="verify-page">
+    <section class="verify-hero">
+      <div class="verify-hero__content">
+        <a class="verify-back-link" href="product.html">
+          Back to product
+        </a>
+
+        <span class="verify-eyebrow">Serial Verification</span>
+        <h1>Check part authenticity in seconds</h1>
+        <p>
+          Validate the serial number, review the matched product, and decide the next step
+          with a cleaner high-trust AutoFix verification experience.
+        </p>
+
+        <div class="verify-hero__meta">
+          <span class="verify-meta-pill" id="verifyVehicleChip">Vehicle not selected</span>
+          <span class="verify-meta-pill" id="verifyDealerChip">Dealer registry</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="verify-layout">
+      <div class="verify-main-card">
+        <div class="verify-section-header">
+          <div>
+            <span class="verify-step">Step 1</span>
+            <h2>Enter the serial number</h2>
+            <p>Use the serial printed on the part or the dealer packaging to run a quick authenticity check.</p>
+          </div>
+        </div>
+
+      <div class="verify-box">
+          <input type="text" id="serialInput" placeholder="Enter serial number" />
+          <button type="button" onclick="runVerification()">Verify</button>
+        </div>
+
+        <div class="verify-product-card">
+          <div class="verify-product-card__media">
+            <img id="verifyImg" alt="Product image">
+          </div>
+
+          <div class="verify-product-card__body">
+            <span class="verify-step">Detected Part</span>
+            <h3 id="verifyName">Selected product</h3>
+
+            <div class="verify-product-card__chips">
+              <span class="verify-chip" id="verifyTypeChip">Type</span>
+              <span class="verify-chip verify-chip--soft" id="verifyPriceChip">0 EGP</span>
+            </div>
+
+            <div class="verify-product-card__meta">
+              <p><span>Type</span><strong id="verifyType"></strong></p>
+              <p><span>Price</span><strong id="verifyPrice"></strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="result-box" id="resultBox">
+        <div class="result-box__header">
+          <span class="result-status-badge" id="resultStatusBadge">Valid</span>
+          <h2 id="resultTitle">Result: Valid</h2>
+        </div>
+
+        <div class="result-box__rows">
+          <div class="result-row">
+            <span>Registry status</span>
+            <strong id="resultText">Matched in Dealer Registry</strong>
+          </div>
+
+          <div class="result-row">
+            <span>Serial number</span>
+            <strong id="resultSerial">Pending verification</strong>
+          </div>
+        </div>
+
+        <p class="result-box__recommendation" id="recommendationText">
+          Recommendation goes here.
+        </p>
+      </aside>
+    </section>
+
+    <section class="verify-actions-card">
+      <div class="verify-section-header">
+        <div>
+          <span class="verify-step">Next Actions</span>
+          <h2>Choose what to do next</h2>
+          <p>Continue with the seller, report a suspicious item, or go back to available alternatives.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a href="dealers.html" class="action-btn action-btn--dark" id="verifySellerLink">View seller</a>
+        <a href="report.html" class="action-btn action-btn--warning" id="verifyReportLink">Report suspicion</a>
+        <a href="product.html" class="action-btn action-btn--soft" id="verifyAlternativesLink">Alternatives</a>
+      </div>
+    </section>
+
+    <section class="verify-history-card" id="verifyHistorySection" hidden>
+      <div class="verify-section-header">
+        <div>
+          <span class="verify-step">History</span>
+          <h2>Your verification activity</h2>
+          <p>Review recent authenticity checks and reports submitted from your AutoFix account.</p>
+        </div>
+      </div>
+
+      <div class="verify-history-grid">
+        <div class="verify-history-panel">
+          <div class="verify-history-panel__header">
+            <h3>Recent checks</h3>
+            <span class="verify-history-count" id="verifyChecksCount">0</span>
+          </div>
+          <div class="verify-history-list" id="verifyChecksList"></div>
+        </div>
+
+        <div class="verify-history-panel">
+          <div class="verify-history-panel__header">
+            <h3>Recent reports</h3>
+            <span class="verify-history-count" id="verifyReportsCount">0</span>
+          </div>
+          <div class="verify-history-list" id="verifyReportsList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="autofix-data.js"></script>
+  <script src="verification-api.js"></script>
+  <script src="verify.js"></script>
+</body>
+</html>

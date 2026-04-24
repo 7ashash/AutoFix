@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmation - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="order.css" />
+</head>
+<body class="order-page-body">
+
+  <div id="site-header"></div>
+
+  <main class="order-page">
+    <section class="order-hero" id="orderHero">
+      <div class="order-hero__content">
+        <span class="order-eyebrow">Order Confirmed</span>
+        <h1 id="orderHeroTitle">Your AutoFix order is ready</h1>
+        <p id="orderHeroSubtitle">
+          Review your confirmation details, purchased parts, payment choice, and the selected fulfillment method.
+        </p>
+
+        <div class="order-hero__meta">
+          <span class="order-pill" id="orderNumberPill">Order pending</span>
+          <span class="order-pill" id="orderMethodPill">Fulfillment pending</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="order-layout" id="orderContent">
+      <div class="order-main">
+        <article class="order-card">
+          <div class="order-card__header">
+            <div>
+              <span class="order-step">Customer</span>
+              <h2>Delivery and contact details</h2>
+            </div>
+          </div>
+
+          <div class="order-info-grid" id="customerInfo"></div>
+        </article>
+
+        <article class="order-card">
+          <div class="order-card__header">
+            <div>
+              <span class="order-step">Items</span>
+              <h2>Ordered spare parts</h2>
+            </div>
+          </div>
+
+          <div class="order-items" id="orderItems"></div>
+        </article>
+
+        <article class="order-card">
+          <div class="order-card__header">
+            <div>
+              <span class="order-step">History</span>
+              <h2>Recent orders</h2>
+            </div>
+          </div>
+
+          <div class="order-history" id="orderHistory"></div>
+        </article>
+      </div>
+
+      <aside class="order-summary">
+        <div class="order-summary__card" id="orderSummary"></div>
+      </aside>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="commerce-api.js"></script>
+  <script src="order.js"></script>
+</body>
+</html>

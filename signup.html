@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account</title>
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="signin.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main class="auth-page-shell auth-page-shell--signup">
+    <div class="signup-stage">
+      <div class="signup-hero">
+        <div class="signup-hero__copy">
+          <span class="signup-hero__pill">Smart Parts Platform</span>
+          <h1>Log back in and continue the ride.</h1>
+          <p>
+            Your saved vehicles, verified dealers, and compatible spare parts
+            are waiting in one smooth place.
+          </p>
+
+          <div class="signup-hero__meta">
+            <span>Vehicle-first flow</span>
+            <span>Verified dealers</span>
+            <span>Smarter checkout</span>
+          </div>
+        </div>
+
+        <div class="signup-card-v2">
+          <div class="signup-card-v2__top">
+            <span class="signup-card-v2__eyebrow">Account Setup</span>
+            <a href="signin.html" class="signup-card-v2__ghost">Sign In</a>
+          </div>
+
+          <h2>Create your AutoFix account</h2>
+          <p class="signup-card-v2__desc">
+            Add your details once and start shopping with a cleaner, vehicle-first flow.
+          </p>
+
+          <form id="signupForm" class="signup-form-v2">
+            <label class="signup-field">
+              <span>User Name</span>
+              <div class="signup-input-shell">
+                <i class="fa-regular fa-user"></i>
+                <input type="text" id="signupUsername" placeholder="Choose a username" required>
+              </div>
+            </label>
+
+            <label class="signup-field">
+              <span>Email Address</span>
+              <div class="signup-input-shell">
+                <i class="fa-regular fa-envelope"></i>
+                <input type="email" id="signupEmail" placeholder="you@example.com" required>
+              </div>
+            </label>
+
+            <label class="signup-field">
+              <span>Password</span>
+              <div class="signup-input-shell">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="signupPassword" placeholder="Create a password" required>
+              </div>
+            </label>
+
+            <label class="signup-field">
+              <span>Confirm Password</span>
+              <div class="signup-input-shell">
+                <i class="fa-solid fa-shield-heart"></i>
+                <input type="password" id="confirmPassword" placeholder="Repeat your password" required>
+              </div>
+            </label>
+
+            <label class="signup-field">
+              <span>Full Name</span>
+              <div class="signup-input-shell">
+                <i class="fa-regular fa-id-card"></i>
+                <input type="text" id="fullName" placeholder="Your full name" required>
+              </div>
+            </label>
+
+            <label class="signup-field">
+              <span>Phone Number</span>
+              <div class="signup-input-shell">
+                <i class="fa-solid fa-phone"></i>
+                <input type="text" id="phone" placeholder="+20 1X XXX XXXX" required>
+              </div>
+            </label>
+
+            <div class="signup-form-v2__section-title signup-field--wide">Your Car Profile</div>
+
+            <label class="signup-field">
+              <span>Car Brand</span>
+              <div class="signup-input-shell">
+                <i class="fa-solid fa-car-side"></i>
+                <select id="signupVehicleBrand" required>
+                  <option value="">Select brand</option>
+                </select>
+              </div>
+            </label>
+
+            <label class="signup-field">
+              <span>Car Model</span>
+              <div class="signup-input-shell">
+                <i class="fa-solid fa-car"></i>
+                <select id="signupVehicleModel" required disabled>
+                  <option value="">Select model</option>
+                </select>
+              </div>
+            </label>
+
+            <label class="signup-field signup-field--wide">
+              <span>Manufactured Year</span>
+              <div class="signup-input-shell">
+                <i class="fa-regular fa-calendar"></i>
+                <select id="signupVehicleYear" required disabled>
+                  <option value="">Select year</option>
+                </select>
+              </div>
+            </label>
+
+            <button type="submit" class="signup-submit-v2">Create Account</button>
+          </form>
+
+          <div class="signup-card-v2__footer">
+            <span>Already have an account?</span>
+            <a href="signin.html">Sign In</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="catalog-api.js"></script>
+  <script src="signup.js"></script>
+</body>
+</html>

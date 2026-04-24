@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request Dealer Access - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png" />
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="dealer-access-request.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="dealer-request-body">
+  <div id="site-header"></div>
+
+  <main class="dealer-request-page">
+    <section class="dealer-request-hero">
+      <div class="dealer-request-hero__content">
+        <span class="dealer-request-eyebrow">Dealer access workflow</span>
+        <h1>Request dealer access through the right official network</h1>
+        <p>
+          Submit your request as a registered AutoFix user. The site admin will review your email,
+          assign the correct dealer network, and approve only the brands that belong to that network.
+        </p>
+        <div class="dealer-request-hero__meta">
+          <span class="dealer-request-pill">Registered accounts only</span>
+          <span class="dealer-request-pill">Brand-specific approval</span>
+          <span class="dealer-request-pill">Admin-reviewed workflow</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="dealer-request-layout">
+      <article class="dealer-request-card dealer-request-card--form">
+        <div class="dealer-request-card__header">
+          <div>
+            <span class="dealer-request-step">Request form</span>
+            <h2>Apply for dealer access</h2>
+          </div>
+          <span class="dealer-request-badge" id="dealerRequestAccountBadge">Account check</span>
+        </div>
+
+        <form id="dealerAccessRequestForm" class="dealer-request-form">
+          <div class="dealer-request-form__grid">
+            <label class="dealer-request-field">
+              <span>Registered account</span>
+              <input id="dealerRequestEmail" type="email" readonly />
+            </label>
+            <label class="dealer-request-field">
+              <span>Dealer network</span>
+              <select id="dealerRequestDealerSelect"></select>
+            </label>
+          </div>
+
+          <div class="dealer-request-block">
+            <div class="dealer-request-block__top">
+              <strong>Brand scope</strong>
+              <span>Select the brands you need to operate under this network.</span>
+            </div>
+            <div class="dealer-request-brand-grid" id="dealerRequestBrandGrid"></div>
+          </div>
+
+          <label class="dealer-request-field dealer-request-field--full">
+            <span>Business note</span>
+            <textarea id="dealerRequestNote" rows="5" placeholder="Tell the admin what you want to manage, your business context, and why this dealer scope matches your account."></textarea>
+          </label>
+
+          <div class="dealer-request-form__footer">
+            <p class="dealer-request-feedback" id="dealerRequestFeedback">
+              Only registered AutoFix users can send dealer-access requests.
+            </p>
+            <button class="dealer-request-submit" type="submit">Submit request</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="dealer-request-card">
+        <div class="dealer-request-card__header">
+          <div>
+            <span class="dealer-request-step">Request history</span>
+            <h2>Your latest dealer-access requests</h2>
+          </div>
+          <span class="dealer-request-badge" id="dealerRequestHistoryBadge">0 requests</span>
+        </div>
+        <div class="dealer-request-history" id="dealerRequestHistory"></div>
+      </article>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="dealer-access-request.js"></script>
+</body>
+</html>

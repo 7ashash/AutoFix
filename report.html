@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Suspicion - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="report.css" />
+</head>
+<body class="report-page-body">
+  <div id="site-header"></div>
+
+  <main class="report-page">
+    <section class="report-hero">
+      <div class="report-hero__content">
+        <a class="report-back-link" href="verify.html">Back to verification</a>
+        <span class="report-eyebrow">Verification Report</span>
+        <h1>Report a suspicious or unverified part</h1>
+        <p>
+          Submit a realistic review request to the AutoFix verification workflow so the registry,
+          dealer source, and serial can be checked by the support team.
+        </p>
+
+        <div class="report-auth-banner" id="reportAuthBanner">
+          Sign in to submit a report that will be saved to your account history.
+        </div>
+      </div>
+    </section>
+
+    <section class="report-layout">
+      <section class="report-main-card">
+        <div class="report-section-header">
+          <div>
+            <span class="report-step">Step 1</span>
+            <h2>Tell AutoFix what looks wrong</h2>
+            <p>Use the same serial shown on the product or package and explain what made you suspicious.</p>
+          </div>
+        </div>
+
+        <form id="reportForm" class="report-form">
+          <div class="report-form__grid">
+            <label class="report-field">
+              <span>Serial Number</span>
+              <input type="text" id="reportSerial" placeholder="SN-XXXX-XXXX" />
+            </label>
+
+            <label class="report-field">
+              <span>Seller Name</span>
+              <input type="text" id="reportSeller" placeholder="Dealer or marketplace seller" />
+            </label>
+          </div>
+
+          <div class="report-form__grid">
+            <label class="report-field">
+              <span>Report Type</span>
+              <select id="reportStatus">
+                <option value="suspicious">Suspicious item</option>
+                <option value="unverified">Unverified serial</option>
+              </select>
+            </label>
+
+            <label class="report-field">
+              <span>Part Reference</span>
+              <input type="text" id="reportPartReference" placeholder="Part number or selected item" readonly />
+            </label>
+          </div>
+
+          <label class="report-field report-field--full">
+            <span>Reason</span>
+            <textarea id="reportReason" placeholder="Explain why this item should be reviewed..."></textarea>
+          </label>
+
+          <div class="report-actions">
+            <button type="submit" class="report-submit-btn" id="reportSubmitBtn">Submit report</button>
+            <button type="button" class="report-secondary-btn" id="reportSigninBtn">Sign in first</button>
+          </div>
+        </form>
+
+        <section class="report-success" id="reportSuccess" hidden>
+          <span class="report-step">Submitted</span>
+          <h2>Your report is now in the verification queue</h2>
+          <p id="reportSuccessText">AutoFix support will review the serial and the linked seller context.</p>
+          <div class="report-success__actions">
+            <a href="verify.html" class="report-submit-btn report-submit-btn--link">Back to verification</a>
+            <a href="order.html" class="report-secondary-btn report-secondary-btn--link">View account activity</a>
+          </div>
+        </section>
+      </section>
+
+      <aside class="report-side-card">
+        <div class="report-section-header">
+          <div>
+            <span class="report-step">Selected Context</span>
+            <h2>Part snapshot</h2>
+            <p>The current product and serial context will be attached to your report automatically.</p>
+          </div>
+        </div>
+
+        <div class="report-product-card">
+          <div class="report-product-card__media">
+            <img id="reportPreviewImage" alt="Part preview" />
+          </div>
+
+          <div class="report-product-card__body">
+            <h3 id="reportPreviewName">No part selected</h3>
+            <div class="report-product-card__chips">
+              <span class="report-chip" id="reportPreviewType">Type</span>
+              <span class="report-chip report-chip--soft" id="reportPreviewPartNumber">Part number</span>
+            </div>
+            <p id="reportPreviewMeta">Open a product first to attach richer verification context.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="verification-api.js"></script>
+  <script src="report.js"></script>
+</body>
+</html>

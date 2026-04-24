@@ -1,0 +1,32 @@
+{
+  "name": "auto-fix",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "stack:start": "powershell.exe -ExecutionPolicy Bypass -File ./scripts/run-local-stack.ps1",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:start": "npm --prefix backend run start",
+    "backend:db:init": "npm --prefix backend run db:init",
+    "backend:db:seed": "npm --prefix backend run db:seed",
+    "backend:db:migrate": "npm --prefix backend run db:migrate",
+    "backend:db:runtime:start": "npm --prefix backend run db:runtime:start",
+    "backend:db:runtime:stop": "npm --prefix backend run db:runtime:stop",
+    "backend:db:runtime:ping": "npm --prefix backend run db:runtime:ping",
+    "backend:phase4:smoke": "npm --prefix backend run phase4:smoke",
+    "backend:phase5:smoke": "npm --prefix backend run phase5:smoke",
+    "backend:phase6:smoke": "npm --prefix backend run phase6:smoke",
+    "backend:phase7:smoke": "npm --prefix backend run phase7:smoke",
+    "backend:phase8:smoke": "npm --prefix backend run phase8:smoke",
+    "backend:phase9:smoke": "npm --prefix backend run phase9:smoke",
+    "backend:data:prepare-production": "npm --prefix backend run data:prepare-production",
+    "phase10:smoke": "node scripts/smoke-test-phase10.js",
+    "backend:stack": "npm --prefix backend run dev:stack"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - AutoFix</title>
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png" />
+  <link rel="stylesheet" href="site-shell.css" />
+  <link rel="stylesheet" href="admin-dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="admin-dashboard-body">
+  <div id="site-header"></div>
+
+  <main class="admin-dashboard-page">
+    <section class="admin-layout">
+      <aside class="admin-sidebar">
+        <div class="admin-sidebar__brand">
+          <span class="admin-sidebar__mark">AF</span>
+          <div>
+            <h2>Admin Space</h2>
+            <p>Full marketplace control</p>
+          </div>
+        </div>
+
+        <nav class="admin-sidebar__nav" aria-label="Admin sections">
+          <a class="admin-sidebar__link is-active" href="#overview" data-admin-view-link="overview"><i class="fa-solid fa-chart-line"></i><span>Overview</span></a>
+          <a class="admin-sidebar__link" href="#users-access" data-admin-view-link="users"><i class="fa-solid fa-users-gear"></i><span>Users & access</span></a>
+          <a class="admin-sidebar__link" href="#networks" data-admin-view-link="networks"><i class="fa-solid fa-building-shield"></i><span>Dealer networks</span></a>
+          <a class="admin-sidebar__link" href="#workspaces" data-admin-view-link="workspaces"><i class="fa-solid fa-store"></i><span>Dealer workspaces</span></a>
+          <a class="admin-sidebar__link" href="#products" data-admin-view-link="products"><i class="fa-solid fa-boxes-stacked"></i><span>Products</span></a>
+          <a class="admin-sidebar__link" href="#orders" data-admin-view-link="orders"><i class="fa-solid fa-bag-shopping"></i><span>Orders</span></a>
+          <a class="admin-sidebar__link" href="#inventory" data-admin-view-link="inventory"><i class="fa-solid fa-warehouse"></i><span>Inventory</span></a>
+        </nav>
+
+        <button class="admin-sidebar__logout" type="button" data-autofix-logout>
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Log Out</span>
+        </button>
+
+        <div class="admin-sidebar__note">
+          <span class="admin-chip admin-chip--soft">Reminder</span>
+          <h3>Every dealer must stay mapped to the correct official network.</h3>
+          <p>Use the access studio to assign email accounts to one or more dealer networks and keep brand coverage accurate.</p>
+        </div>
+      </aside>
+
+      <div class="admin-main">
+        <section class="admin-view is-active" data-admin-view="overview">
+          <section class="admin-hero" id="overview">
+            <div class="admin-hero__copy">
+              <span class="admin-chip admin-chip--hero">Platform control center</span>
+              <h1>Manage users, dealers, networks, products, orders, and stock from one place.</h1>
+              <p>
+                The admin can convert any registered account into a dealer, assign one or more
+                official dealer networks, open any dealer workspace, and control the live marketplace
+                end-to-end.
+              </p>
+              <div class="admin-hero__meta">
+                <span class="admin-chip">User to dealer workflow</span>
+                <span class="admin-chip">Multi-network access control</span>
+                <span class="admin-chip">Full catalog & order visibility</span>
+              </div>
+            </div>
+
+            <div class="admin-hero__stats">
+              <article class="admin-hero__stat">
+                <span>Users</span>
+                <strong id="heroUsersCount">0</strong>
+              </article>
+              <article class="admin-hero__stat">
+                <span>Dealers</span>
+                <strong id="heroDealersCount">0</strong>
+              </article>
+              <article class="admin-hero__stat">
+                <span>Networks</span>
+                <strong id="heroNetworksCount">0</strong>
+              </article>
+              <article class="admin-hero__stat">
+                <span>Orders</span>
+                <strong id="heroOrdersCount">0</strong>
+              </article>
+            </div>
+          </section>
+
+          <section class="admin-kpis">
+            <article class="admin-kpi">
+              <span class="admin-kpi__icon"><i class="fa-solid fa-user-group"></i></span>
+              <div>
+                <p>Total users</p>
+                <h3 id="kpiUsers">0</h3>
+                <span>Registered marketplace accounts</span>
+              </div>
+            </article>
+            <article class="admin-kpi">
+              <span class="admin-kpi__icon"><i class="fa-solid fa-id-badge"></i></span>
+              <div>
+                <p>Dealer accounts</p>
+                <h3 id="kpiDealers">0</h3>
+                <span>Approved dealer operators</span>
+              </div>
+            </article>
+            <article class="admin-kpi">
+              <span class="admin-kpi__icon"><i class="fa-solid fa-box-open"></i></span>
+              <div>
+                <p>Products</p>
+                <h3 id="kpiProducts">0</h3>
+                <span>Catalog entries across all dealers</span>
+              </div>
+            </article>
+            <article class="admin-kpi">
+              <span class="admin-kpi__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+              <div>
+                <p>Orders</p>
+                <h3 id="kpiOrders">0</h3>
+                <span>Tracked customer orders</span>
+              </div>
+            </article>
+            <article class="admin-kpi">
+              <span class="admin-kpi__icon"><i class="fa-solid fa-building"></i></span>
+              <div>
+                <p>Dealer networks</p>
+                <h3 id="kpiNetworks">0</h3>
+                <span>Configured official dealer groups</span>
+              </div>
+            </article>
+            <article class="admin-kpi">
+              <span class="admin-kpi__icon"><i class="fa-solid fa-hourglass-half"></i></span>
+              <div>
+                <p>Pending approvals</p>
+                <h3 id="kpiPending">0</h3>
+                <span>Dealer requests waiting for review</span>
+              </div>
+            </article>
+            <article class="admin-kpi">
+              <span class="admin-kpi__icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
+              <div>
+                <p>Low stock</p>
+                <h3 id="kpiLowStock">0</h3>
+                <span>Products that need attention</span>
+              </div>
+            </article>
+          </section>
+
+          <section class="admin-grid admin-grid--overview">
+            <article class="admin-card">
+              <div class="admin-card__header">
+                <div>
+                  <span class="admin-chip admin-chip--soft">Notifications</span>
+                  <h2>Live admin alerts</h2>
+                </div>
+                <span class="admin-badge" id="adminNotificationsCount">0 alerts</span>
+              </div>
+              <div id="adminNotificationsList" class="admin-stack"></div>
+            </article>
+
+            <article class="admin-card">
+              <div class="admin-card__header">
+                <div>
+                  <span class="admin-chip admin-chip--soft">Recent activity</span>
+                  <h2>Latest admin actions</h2>
+                </div>
+                <span class="admin-badge">Live log</span>
+              </div>
+              <div id="adminActivityList" class="admin-stack"></div>
+            </article>
+          </section>
+        </section>
+
+        <section class="admin-view" data-admin-view="users">
+        <section class="admin-grid admin-grid--split" id="users-access">
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Users</span>
+                <h2>Registered accounts and pending dealer requests</h2>
+              </div>
+              <span class="admin-badge" id="adminUsersCount">0 accounts</span>
+            </div>
+
+            <div class="admin-toolbar">
+              <label class="admin-field admin-field--search">
+                <span>Search user</span>
+                <input id="adminUserSearch" class="admin-input" type="search" placeholder="Search by name or email" />
+              </label>
+            </div>
+
+            <div class="admin-subsection">
+              <div class="admin-subsection__head">
+                <h3>Pending dealer requests</h3>
+                <span class="admin-badge" id="adminRequestsCount">0 pending</span>
+              </div>
+              <div id="adminRequestsList" class="admin-stack"></div>
+            </div>
+
+            <div class="admin-subsection">
+              <div class="admin-subsection__head">
+                <h3>All users</h3>
+                <span class="admin-badge" id="adminRenderedUsersCount">0 shown</span>
+              </div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Account</th>
+                      <th>Saved vehicle</th>
+                      <th>Role</th>
+                      <th>Dealer scope</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminUsersBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Access studio</span>
+                <h2>Convert any registered email into a dealer and assign its networks</h2>
+              </div>
+              <span class="admin-badge">Multi-network assignment</span>
+            </div>
+
+            <div id="adminSelectedUserSummary" class="admin-user-summary"></div>
+
+            <form id="adminAccessForm" class="admin-form">
+              <input type="hidden" id="adminSelectedUserId" />
+
+              <div class="admin-form__grid">
+                <label class="admin-field">
+                  <span>Registered email</span>
+                  <input id="adminEmailInput" class="admin-input" type="email" placeholder="registered-user@autofix.com" />
+                </label>
+                <label class="admin-field">
+                  <span>Role</span>
+                  <select id="adminRoleSelect" class="admin-select">
+                    <option value="user">User</option>
+                    <option value="dealer">Dealer</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </label>
+                <label class="admin-field">
+                  <span>Account status</span>
+                  <select id="adminStatusSelect" class="admin-select">
+                    <option value="active">Active</option>
+                    <option value="pending_approval">Pending approval</option>
+                    <option value="suspended">Suspended</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="admin-subsection" id="adminAssignmentsSection">
+                <div class="admin-subsection__head">
+                  <h3>Dealer network assignments</h3>
+                  <button id="adminAddAssignmentBtn" class="admin-secondary-btn" type="button">Add network</button>
+                </div>
+                <div id="adminAssignmentRows" class="admin-assignment-rows"></div>
+              </div>
+
+              <div class="admin-form__footer">
+                <p id="adminAccessFeedback" class="admin-helper">Choose a registered email, then assign one or more dealer networks and brand scopes.</p>
+                <div class="admin-actions">
+                  <button id="adminResetAccessBtn" class="admin-secondary-btn" type="button">Reset</button>
+                  <button class="admin-primary-btn" type="submit">Save access</button>
+                </div>
+              </div>
+            </form>
+          </article>
+        </section>
+        </section>
+
+        <section class="admin-view" data-admin-view="networks">
+        <section class="admin-grid admin-grid--split" id="networks">
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Dealer networks</span>
+                <h2>Official networks and their covered vehicles</h2>
+              </div>
+              <span class="admin-badge" id="adminNetworksCount">0 networks</span>
+            </div>
+            <div id="adminDealerNetworkList" class="admin-network-list"></div>
+          </article>
+
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Network editor</span>
+                <h2>Add or update a dealer network</h2>
+              </div>
+              <span class="admin-badge">Brands and cars</span>
+            </div>
+
+            <form id="adminDealerForm" class="admin-form">
+              <input type="hidden" id="adminDealerId" />
+
+              <div class="admin-form__grid">
+                <label class="admin-field">
+                  <span>Dealer network name</span>
+                  <input id="adminDealerName" class="admin-input" type="text" />
+                </label>
+                <label class="admin-field">
+                  <span>Slug</span>
+                  <input id="adminDealerSlug" class="admin-input" type="text" />
+                </label>
+                <label class="admin-field">
+                  <span>Location</span>
+                  <input id="adminDealerLocation" class="admin-input" type="text" />
+                </label>
+                <label class="admin-field">
+                  <span>Contact email</span>
+                  <input id="adminDealerContactEmail" class="admin-input" type="email" />
+                </label>
+                <label class="admin-field">
+                  <span>Contact phone</span>
+                  <input id="adminDealerContactPhone" class="admin-input" type="text" />
+                </label>
+                <label class="admin-field admin-field--toggle">
+                  <span>Network status</span>
+                  <label class="admin-switch">
+                    <input id="adminDealerActive" type="checkbox" checked />
+                    <span>Active</span>
+                  </label>
+                </label>
+              </div>
+
+              <label class="admin-field">
+                <span>Description</span>
+                <textarea id="adminDealerDescription" class="admin-textarea" rows="4"></textarea>
+              </label>
+
+              <div class="admin-subsection">
+                <div class="admin-subsection__head">
+                  <h3>Supported brands</h3>
+                </div>
+                <div id="adminDealerBrandSelector" class="admin-check-grid"></div>
+              </div>
+
+              <div class="admin-subsection">
+                <div class="admin-subsection__head">
+                  <h3>Cars inside this network</h3>
+                  <span class="admin-badge">Preview from selected brands</span>
+                </div>
+                <div id="adminDealerModelsPreview" class="admin-model-groups"></div>
+              </div>
+
+              <div class="admin-form__footer">
+                <p id="adminDealerFeedback" class="admin-helper">Create a network, attach brands, and the available car models will be previewed automatically.</p>
+                <div class="admin-actions">
+                  <button id="adminDealerResetBtn" class="admin-secondary-btn" type="button">Reset</button>
+                  <button id="adminDealerDeleteBtn" class="admin-danger-btn" type="button" hidden>Delete network</button>
+                  <button class="admin-primary-btn" type="submit">Save network</button>
+                </div>
+              </div>
+            </form>
+          </article>
+        </section>
+        </section>
+
+        <section class="admin-view" data-admin-view="workspaces">
+        <section class="admin-card" id="workspaces">
+          <div class="admin-card__header">
+            <div>
+              <span class="admin-chip admin-chip--soft">Dealer workspaces</span>
+              <h2>Open and manage any dealer dashboard</h2>
+            </div>
+            <span class="admin-badge">Admin preview mode</span>
+          </div>
+          <div id="adminDealerWorkspaceGrid" class="admin-workspace-grid"></div>
+        </section>
+        </section>
+
+        <section class="admin-view" data-admin-view="products">
+        <section class="admin-grid admin-grid--split" id="products">
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Products</span>
+                <h2>All dealer products across the marketplace</h2>
+              </div>
+              <span class="admin-badge" id="adminProductsCount">0 products</span>
+            </div>
+
+            <div class="admin-toolbar admin-toolbar--triple">
+              <label class="admin-field admin-field--search">
+                <span>Search products</span>
+                <input id="adminProductSearch" class="admin-input" type="search" placeholder="Name, part number, serial, category" />
+              </label>
+              <label class="admin-field">
+                <span>Dealer</span>
+                <select id="adminProductDealerFilter" class="admin-select"></select>
+              </label>
+              <label class="admin-field">
+                <span>Brand</span>
+                <select id="adminProductBrandFilter" class="admin-select"></select>
+              </label>
+            </div>
+
+            <div id="adminProductsList" class="admin-product-list"></div>
+          </article>
+
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Product editor</span>
+                <h2>Review or update any product</h2>
+              </div>
+              <span class="admin-badge">Admin catalog control</span>
+            </div>
+
+            <form id="adminProductForm" class="admin-form">
+              <input type="hidden" id="adminProductId" />
+              <div class="admin-form__grid">
+                <label class="admin-field"><span>Name</span><input id="adminProductName" class="admin-input" type="text" /></label>
+                <label class="admin-field"><span>Part number</span><input id="adminProductPartNumber" class="admin-input" type="text" /></label>
+                <label class="admin-field"><span>Serial number</span><input id="adminProductSerial" class="admin-input" type="text" /></label>
+                <label class="admin-field"><span>Manufacturer</span><input id="adminProductManufacturer" class="admin-input" type="text" /></label>
+                <label class="admin-field"><span>Type</span><select id="adminProductType" class="admin-select"><option value="original">Original</option><option value="aftermarket">Aftermarket</option></select></label>
+                <label class="admin-field"><span>Category</span><select id="adminProductCategory" class="admin-select"></select></label>
+                <label class="admin-field"><span>Price (EGP)</span><input id="adminProductPrice" class="admin-input" type="number" min="0" step="0.01" /></label>
+                <label class="admin-field"><span>Stock quantity</span><input id="adminProductStock" class="admin-input" type="number" min="0" step="1" /></label>
+                <label class="admin-field"><span>Warranty (months)</span><input id="adminProductWarranty" class="admin-input" type="number" min="0" step="1" /></label>
+                <label class="admin-field admin-field--toggle">
+                  <span>Active</span>
+                  <label class="admin-switch">
+                    <input id="adminProductActive" type="checkbox" checked />
+                    <span>Visible</span>
+                  </label>
+                </label>
+              </div>
+              <label class="admin-field"><span>Description</span><textarea id="adminProductDescription" class="admin-textarea" rows="5"></textarea></label>
+              <div class="admin-form__footer">
+                <p id="adminProductFeedback" class="admin-helper">Choose a product from the list, then update or archive it.</p>
+                <div class="admin-actions">
+                  <button id="adminProductResetBtn" class="admin-secondary-btn" type="button">Reset</button>
+                  <button id="adminProductDeleteBtn" class="admin-danger-btn" type="button" hidden>Delete / archive</button>
+                  <button class="admin-primary-btn" type="submit">Save product</button>
+                </div>
+              </div>
+            </form>
+          </article>
+        </section>
+        </section>
+
+        <section class="admin-view" data-admin-view="orders">
+        <section class="admin-grid admin-grid--split" id="orders">
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Orders</span>
+                <h2>Track and update every customer order</h2>
+              </div>
+              <span class="admin-badge" id="adminOrdersCount">0 orders</span>
+            </div>
+
+            <label class="admin-field admin-field--search">
+              <span>Search orders</span>
+              <input id="adminOrderSearch" class="admin-input" type="search" placeholder="Order number, customer, email, city" />
+            </label>
+
+            <div id="adminOrdersList" class="admin-order-list"></div>
+          </article>
+
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Order detail</span>
+                <h2>Update status or cancel an order</h2>
+              </div>
+              <span class="admin-badge">Central order control</span>
+            </div>
+            <div id="adminOrderDetail" class="admin-order-detail"></div>
+          </article>
+        </section>
+        </section>
+
+        <section class="admin-view" data-admin-view="inventory">
+        <section class="admin-grid admin-grid--split" id="inventory">
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Inventory</span>
+                <h2>Low-stock products across all dealers</h2>
+              </div>
+              <span class="admin-badge" id="adminInventoryCount">0 low-stock items</span>
+            </div>
+            <div id="adminInventoryList" class="admin-inventory-list"></div>
+          </article>
+
+          <article class="admin-card">
+            <div class="admin-card__header">
+              <div>
+                <span class="admin-chip admin-chip--soft">Stock adjustment</span>
+                <h2>Adjust quantities on behalf of any dealer</h2>
+              </div>
+              <span class="admin-badge">Admin inventory override</span>
+            </div>
+
+            <form id="adminInventoryAdjustForm" class="admin-form">
+              <div class="admin-form__grid">
+                <label class="admin-field">
+                  <span>Product</span>
+                  <select id="adminInventoryPart" class="admin-select"></select>
+                </label>
+                <label class="admin-field">
+                  <span>Quantity delta</span>
+                  <input id="adminInventoryDelta" class="admin-input" type="number" step="1" />
+                </label>
+                <label class="admin-field">
+                  <span>Replace with quantity</span>
+                  <input id="adminInventoryReplace" class="admin-input" type="number" min="0" step="1" />
+                </label>
+              </div>
+
+              <label class="admin-field">
+                <span>Note</span>
+                <input id="adminInventoryNote" class="admin-input" type="text" placeholder="Admin stock adjustment note" />
+              </label>
+
+              <div class="admin-form__footer">
+                <p id="adminInventoryFeedback" class="admin-helper">Pick a product, then apply a direct stock correction or replacement quantity.</p>
+                <div class="admin-actions">
+                  <button id="adminInventoryResetBtn" class="admin-secondary-btn" type="button">Reset</button>
+                  <button class="admin-primary-btn" type="submit">Apply stock update</button>
+                </div>
+              </div>
+            </form>
+          </article>
+        </section>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="site-shell.js"></script>
+  <script src="admin-dashboard.js"></script>
+</body>
+</html>

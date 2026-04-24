@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoFix Auto Parts</title>
+
+  <link rel="icon" type="image/png" href="./pictures/autofix logo.png">
+  <link rel="stylesheet" href="site-shell.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    #adminDashboard {
+      background: #f3f3f3;
+      min-height: 100vh;
+      padding: 22px 0 40px;
+    }
+
+    .admin-page {
+      width: 92%;
+      margin: 0 auto;
+    }
+
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .dashboard-sidebar {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 26px 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .dashboard-sidebar h2 {
+      font-size: 28px;
+      color: #222;
+      margin-bottom: 24px;
+      font-weight: 800;
+    }
+
+    .dash-link {
+      width: 100%;
+      border: none;
+      background: #f4f4f4;
+      color: #444;
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.25s ease;
+      text-align: left;
+    }
+
+    .dash-link i {
+      width: 22px;
+      text-align: center;
+    }
+
+    .dash-link.active {
+      background: #f8eaea;
+      color: #cf2d1e;
+      box-shadow: inset 0 0 0 1px #ecc9c5;
+    }
+
+    .dash-link:hover {
+      background: #f8eaea;
+      color: #cf2d1e;
+    }
+
+    .dashboard-content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-height: 148px;
+    }
+
+    .stat-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      background: #f9eceb;
+      color: #d53121;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .stat-text p {
+      margin: 0 0 8px;
+      color: #666;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .stat-text h3 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      color: #1f1f1f;
+      font-weight: 800;
+    }
+
+    .stat-text span {
+      color: #9b9b9b;
+      font-size: 14px;
+    }
+
+    .double-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.95fr;
+      gap: 20px;
+    }
+
+    .dashboard-card {
+      background: #fff;
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .dashboard-card h3 {
+      font-size: 28px;
+      color: #1f1f1f;
+      margin-bottom: 22px;
+      font-weight: 800;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .quick-actions button {
+      border: none;
+      background: #d93020;
+      color: white;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-family: inherit;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 6px 16px rgba(217, 48, 32, 0.22);
+    }
+
+    .quick-actions button:hover {
+      background: #b82416;
+    }
+
+    .summary-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .summary-list li {
+      background: #f7f7f7;
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #555;
+      font-size: 15px;
+    }
+
+    .summary-list li strong {
+      color: #1f1f1f;
+      font-size: 16px;
+    }
+
+    .full-card {
+      background: #fff;
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .full-card h3 {
+      font-size: 28px;
+      color: #1f1f1f;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    .dashboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    .dashboard-table thead th {
+      text-align: left;
+      padding: 14px 10px;
+      color: #666;
+      font-size: 14px;
+      font-weight: 700;
+      border-bottom: 1px solid #ececec;
+    }
+
+    .dashboard-table tbody td {
+      padding: 16px 10px;
+      border-bottom: 1px solid #f1f1f1;
+      color: #2c2c2c;
+      font-size: 15px;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status-confirmed {
+      background: #eaf8ee;
+      color: #248a4b;
+    }
+
+    .status-pending {
+      background: #fff5dd;
+      color: #bc8600;
+    }
+
+    .status-shipped {
+      background: #eaf1ff;
+      color: #3568d4;
+    }
+
+    .status-low {
+      background: #fff0ef;
+      color: #d53121;
+    }
+
+    .brands-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .brands-wrap span {
+      background: #f7f7f7;
+      border-radius: 999px;
+      padding: 12px 18px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1200px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .double-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-sidebar h2,
+      .dashboard-card h3,
+      .full-card h3 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="site-header"></div>
+
+  <main>
+
+    <section id="homeContent">
+
+      <section class="hero-banner" style="margin: 0;">
+        <h2>GET YOUR VEHICLE READY</h2>
+        <p>Save on Batteries, Brakes, Oil & More</p>
+
+        <button class="shop-now-btn" id="shopNowBtn">
+          <a href="#brandSelectionSection" style="text-decoration: none; color: white;">Shop Now</a>
+        </button>
+      </section>
+
+      <div id="chatSidebar" class="chat-sidebar">
+        <div class="chat-header">
+          <h3>AutoFix Assistant 🤖</h3>
+          <button id="closeChat">×</button>
+        </div>
+
+        <div class="chat-body" id="chatBody">
+          <div class="bot-msg">Hi 👋 How can I help you?</div>
+        </div>
+
+        <div class="chat-footer">
+          <input type="text" id="userInput" placeholder="Ask about parts...">
+          <button onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+
+      <section class="brands-section" id="brandSelectionSection">
+        <h2>Find out what fits your type of car</h2>
+
+        <div class="carousel-container">
+          <button class="nav-btn left" id="prevBtn">&#10094;</button>
+
+          <div class="carousel" id="carousel">
+            <div class="brand" data-brand="bmw">
+                    <img src="./pictures/brand-logos/bmw.png" alt="BMW">
+            </div>
+            <div class="brand" data-brand="audi">
+                    <img src="./pictures/brand-logos/audi.png" alt="Audi">
+            </div>
+            <div class="brand" data-brand="mercedes">
+                <img src="./pictures/brand-logos/mercedes.png" alt="Mercedes">
+            </div>
+            <div class="brand" data-brand="nissan">
+                    <img src="./pictures/brand-logos/nissan.png" alt="Nissan">
+            </div>
+            <div class="brand" data-brand="hyundai">
+                <img src="./pictures/brand-logos/hyundai.png" alt="Hyundai">
+            </div>
+            <div class="brand" data-brand="toyota">
+                <img src="./pictures/brand-logos/toyota.png" alt="Toyota">
+            </div>
+            <div class="brand" data-brand="peugeot">
+                    <img src="./pictures/brand-logos/peugeot.png" alt="Peugeot">
+            </div>
+            <div class="brand" data-brand="mg">
+                    <img src="./pictures/brand-logos/mg.png" alt="MG">
+            </div>
+            <div class="brand" data-brand="kia">
+                <img src="./pictures/brand-logos/kia.png" alt="Kia">
+            </div>
+            <div class="brand" data-brand="chevorlet">
+                <img src="./pictures/brand-logos/chevrolet.png" alt="Chevrolet">
+            </div>
+          </div>
+
+          <button class="nav-btn right" id="nextBtn">&#10095;</button>
+        </div>
+
+        <a href="#" class="show-all">Choose Your Car Brand →</a>
+      </section>
+
+      <section class="replacement-section" id="replacementSection">
+        <h2>Replacement Parts</h2>
+
+        <div class="replacement-grid">
+          <div class="replacement-item" onclick="goToProducts('oilfilter', 0)">
+            <img src="./pictures/oil filter.jpg">
+            <p>Oil Filters</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('brakepads', 0)">
+            <img src="./pictures/brake pads.webp">
+            <p>Brake Pads</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('carbattery', 0)">
+            <img src="./pictures/automotive_battery_PNG12097.png">
+            <p>Car Battery</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('wiperblades', 0)">
+            <img src="./pictures/blades.webp">
+            <p>Wiper Blades</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('sparkplugs', 0)">
+            <img src="./pictures/spark-plug_1.jpg">
+            <p>Spark Plug</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('alternator', 0)">
+            <img src="./pictures/german-alternator-17197808.webp">
+            <p>Alternator</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('shockabsorber', 0)">
+            <img src="./pictures/car-shock-absorber-2JW0rlC-600.jpg">
+            <p>Shock Absorber</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('gaskets', 0)">
+            <img src="./pictures/Screenshot 2026-03-10 211535.png">
+            <p>Gaskets</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('waterpump', 0)">
+            <img src="./pictures/water.jpg">
+            <p>Water Pump</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('tierodends', 0)">
+            <img src="./pictures/tie rod.png">
+            <p>Tie Rod Ends</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('oxygensensor', 0)">
+            <img src="./pictures/02.jpg">
+            <p>Oxygen Sensor</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('serpentinebelt', 0)">
+            <img src="./pictures/belt.jpg">
+            <p>Serpentine Belt</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="accessories" id="accessories">
+        <h2>Car Accessories</h2>
+
+        <div class="accessories-grid">
+          <div class="accessories-item" onclick="goToProducts('floormats', 0)">
+            <img src="./pictures/floor mats.webp">
+            <p>Floor Mat</p>
+          </div>
+
+          <div class="accessories-item" onclick="goToProducts('seatcovers', 0)">
+            <img src="./pictures/seat cover2.jpg">
+            <p>Seat Covers</p>
+          </div>
+
+          <div class="accessories-item" onclick="goToProducts('phonemount', 0)">
+            <img src="./pictures/phone2.jpg">
+            <p>Phone Mount</p>
+          </div>
+
+          <div class="accessories-item" onclick="goToProducts('steeringwheel', 0)">
+            <img src="./pictures/steering wheel2.jpg">
+            <p>Stearing Wheel</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="tools" id="tools">
+        <h2>Car Tools</h2>
+
+        <div class="tools-grid">
+          <div class="replacement-item" onclick="goToProducts('socketset', 0)">
+            <img src="./pictures/socket set.png">
+            <p>Socket Set</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('pliersset', 0)">
+            <img src="./pictures/pliers set.jpg">
+            <p>Plier Set</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('floorjack', 0)">
+            <img src="./pictures/floor jack.jpg">
+            <p>Floor Jack</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('torquewrench', 0)">
+            <img src="./pictures/torque wrench.jpg">
+            <p>Torque Wrench</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="fluid" id="fluid">
+        <h2>Fluids</h2>
+
+        <div class="fluid-grid">
+          <div class="replacement-item" onclick="goToProducts('motoroil', 0)">
+            <img src="./pictures/motor oil.jpg">
+            <p>Motor Oil</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('enginecoolant', 0)">
+            <img src="./pictures/engine coolant.jpg">
+            <p>Engine Coolant</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('brakefluid', 0)">
+            <img src="./pictures/brake fluid.jpg">
+            <p>Brake Fluid</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('transmissionfluid', 0)">
+            <img src="./pictures/tranmission.png">
+            <p>Transmission Fluid</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="Performance" id="Performance">
+        <h2>Performance</h2>
+
+        <div class="Performance-grid">
+          <div class="replacement-item" onclick="goToProducts('coldairintake', 0)">
+            <img src="./pictures/cold air.jpg">
+            <p>Cold Air Intake</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('coilover', 0)">
+            <img src="./pictures/coil.jpg">
+            <p>CoilOver</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('bigbrakekit', 0)">
+            <img src="./pictures/big brake.jpg">
+            <p>Big Brake Kit</p>
+          </div>
+
+          <div class="replacement-item" onclick="goToProducts('highperformancetires', 0)">
+            <img src="./pictures/ultra-high-performance-tires-5.jpg">
+            <p>High Performance Tiers</p>
+          </div>
+        </div>
+      </section>
+
+    
+
+       <section class="companies-section">
+  <h2>Top Dealers</h2>
+  <p>Trusted automotive partners</p>
+
+  <div class="companies">
+
+   <div class="company">
+  <img src="./pictures/dealer1.jpg">
+  <h4>Abou Ghaly Motors</h4>
+</div>
+
+<div class="company">
+  <img src="./pictures/dealer2.jpg">
+  <h4>Ezz Elarab</h4>
+</div>
+
+<div class="company">
+  <img src="./pictures/dealer3.jpg">
+  <h4>Toyota Egypt</h4>
+</div>
+
+<div class="company">
+  <img src="./pictures/dealer4.jpg">
+  <h4>Al-Mansour</h4>
+</div>
+
+  <div class="company">
+  <img src="./pictures/dealer5.jpg">
+  <h4>Ramsis Group</h4>
+</div>
+
+    </div>
+  </section>
+
+    <section id="adminDashboard" style="display: none;">
+      <div class="admin-page">
+        <div class="dashboard-layout">
+
+          <aside class="dashboard-sidebar">
+            <h2>Dashboard</h2>
+
+            <button class="dash-link active">
+              <i class="fa-solid fa-chart-line"></i>
+              <span>Overview</span>
+            </button>
+
+            <button class="dash-link">
+              <i class="fa-solid fa-boxes-stacked"></i>
+              <span>Inventory</span>
+            </button>
+
+            <button class="dash-link">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <span>Orders</span>
+            </button>
+
+            <button class="dash-link">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Categories</span>
+            </button>
+
+            <button class="dash-link">
+              <i class="fa-solid fa-car-side"></i>
+              <span>Brands</span>
+            </button>
+
+            <button class="dash-link">
+              <i class="fa-solid fa-check-double"></i>
+              <span>Verification</span>
+            </button>
+
+            <button class="dash-link">
+              <i class="fa-solid fa-users"></i>
+              <span>Customers</span>
+            </button>
+
+            <button class="dash-link">
+              <i class="fa-solid fa-gear"></i>
+              <span>Settings</span>
+            </button>
+          </aside>
+
+          <div class="dashboard-content">
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fa-solid fa-box-open"></i>
+                </div>
+                <div class="stat-text">
+                  <p>Total Products</p>
+                  <h3>248</h3>
+                  <span>+12 this week</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fa-solid fa-cart-flatbed"></i>
+                </div>
+                <div class="stat-text">
+                  <p>Pending Orders</p>
+                  <h3>19</h3>
+                  <span>5 need confirmation</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="stat-text">
+                  <p>Low Stock Items</p>
+                  <h3>14</h3>
+                  <span>Restock soon</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fa-solid fa-tags"></i>
+                </div>
+                <div class="stat-text">
+                  <p>Total Categories</p>
+                  <h3>5</h3>
+                  <span>Replacement, Tools, Fluids...</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="double-grid">
+              <div class="dashboard-card">
+                <h3>Quick Actions</h3>
+                <div class="quick-actions">
+                  <button>Add Product</button>
+                  <button>Update Stock</button>
+                  <button>Manage Orders</button>
+                  <button>Review Requests</button>
+                </div>
+              </div>
+
+              <div class="dashboard-card">
+                <h3>Store Summary</h3>
+                <ul class="summary-list">
+                  <li><span>Best Seller</span> <strong>Brake Pads</strong></li>
+                  <li><span>Top Brand</span> <strong>BMW</strong></li>
+                  <li><span>Most Viewed</span> <strong>Oil Filters</strong></li>
+                  <li><span>Highest Rated</span> <strong>Car Battery</strong></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="full-card">
+              <h3>Inventory</h3>
+              <div class="table-wrap">
+                <table class="dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>SKU</th>
+                      <th>Product Name</th>
+                      <th>Stock</th>
+                      <th>Price</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AF-101</td>
+                      <td>Oil Filter Premium</td>
+                      <td>32</td>
+                      <td>$25</td>
+                      <td><span class="status-pill status-confirmed">In Stock</span></td>
+                    </tr>
+                    <tr>
+                      <td>AF-102</td>
+                      <td>Brake Pads Set</td>
+                      <td>12</td>
+                      <td>$48</td>
+                      <td><span class="status-pill status-low">Low Stock</span></td>
+                    </tr>
+                    <tr>
+                      <td>AF-103</td>
+                      <td>Car Battery 70Ah</td>
+                      <td>8</td>
+                      <td>$120</td>
+                      <td><span class="status-pill status-low">Low Stock</span></td>
+                    </tr>
+                    <tr>
+                      <td>AF-104</td>
+                      <td>Wiper Blades</td>
+                      <td>54</td>
+                      <td>$18</td>
+                      <td><span class="status-pill status-confirmed">In Stock</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="full-card">
+              <h3>Incoming Orders</h3>
+              <div class="table-wrap">
+                <table class="dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>Order #</th>
+                      <th>Customer</th>
+                      <th>Items</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>10421</td>
+                      <td>Ahmed M.</td>
+                      <td>2</td>
+                      <td><span class="status-pill status-confirmed">Confirmed</span></td>
+                    </tr>
+                    <tr>
+                      <td>10422</td>
+                      <td>Sara A.</td>
+                      <td>1</td>
+                      <td><span class="status-pill status-pending">Pending</span></td>
+                    </tr>
+                    <tr>
+                      <td>10423</td>
+                      <td>Omar H.</td>
+                      <td>3</td>
+                      <td><span class="status-pill status-shipped">Shipped</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <h3>Top Brands</h3>
+              <div class="brands-wrap">
+                <span>BMW</span>
+                <span>Audi</span>
+                <span>Mercedes</span>
+                <span>Nissan</span>
+                <span>Hyundai</span>
+                <span>Toyota</span>
+                <span>Peugeot</span>
+                <span>MG</span>
+                <span>Kia</span>
+                <span>Chevrolet</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <footer>
+    <p>© 2026 AutoFix</p>
+  </footer>
+
+  <script src="site-shell.js"></script>
+  <script src="autofix-data.js"></script>
+  <script src="index.js"></script>
+
+  <script>
+    function showDashboard() {
+      const home = document.getElementById("homeContent");
+      const dashboard = document.getElementById("adminDashboard");
+
+      if (home) home.style.display = "none";
+      if (dashboard) dashboard.style.display = "block";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showHome() {
+      const home = document.getElementById("homeContent");
+      const dashboard = document.getElementById("adminDashboard");
+
+      if (dashboard) dashboard.style.display = "none";
+      if (home) home.style.display = "block";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    
+  </script>
+<div id="verifyModal" class="verify-modal">
+  <div class="verify-modal-content">
+    <button class="verify-close" id="closeVerifyModal">×</button>
+
+    <h2>Verify Part Serial</h2>
+    <p class="verify-subtitle">
+      Enter the serial number to check if the part is original and view its details.
+    </p>
+
+    <div class="verify-form">
+      <input type="text" id="serialInput" placeholder="Enter serial number">
+      <button id="verifyBtn">Verify</button>
+    </div>
+
+    <div id="verifyMessage" class="verify-message"></div>
+
+    <div id="partResult" class="part-result" style="display: none;">
+      <div class="result-grid">
+        <div class="result-item">
+          <span>Part Name</span>
+          <strong id="resultName">-</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Brand</span>
+          <strong id="resultBrand">-</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Serial Number</span>
+          <strong id="resultSerial">-</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Category</span>
+          <strong id="resultCategory">-</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Compatible Car</span>
+          <strong id="resultCar">-</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Price</span>
+          <strong id="resultPrice">-</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Condition</span>
+          <strong id="resultCondition">-</strong>
+        </div>
+
+        <div class="result-item">
+          <span>Warranty</span>
+          <strong id="resultWarranty">-</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
