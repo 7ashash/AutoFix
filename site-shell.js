@@ -1,5 +1,19 @@
 (function () {
-  const API_BASE = "http://localhost:4000/api";
+  function resolveApiBase() {
+    const configuredBase = window.AUTO_FIX_API_BASE;
+    if (configuredBase) {
+      return String(configuredBase).replace(/\/$/, "");
+    }
+
+    const isLocalHost = ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
+    if (isLocalHost) {
+      return "http://localhost:4000/api";
+    }
+
+    return `${window.location.origin}/api`;
+  }
+
+  const API_BASE = resolveApiBase();
   const AUTH_TOKEN_KEY = "autofixAuthToken";
   const AUTH_USER_KEY = "loggedInUser";
 

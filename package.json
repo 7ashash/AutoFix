@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "npm --prefix backend run start",
+    "postinstall": "npm --prefix backend install",
     "preview": "vite preview",
     "stack:start": "powershell.exe -ExecutionPolicy Bypass -File ./scripts/run-local-stack.ps1",
     "backend:dev": "npm --prefix backend run dev",

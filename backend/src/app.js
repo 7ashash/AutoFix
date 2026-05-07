@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import fs from "fs";
+import path from "path";
 import { env } from "./config/env.js";
 import { pingDatabase } from "./config/database.js";
 import apiRouter from "./routes/index.js";
@@ -39,6 +41,20 @@ app.get("/api/health", async (_req, res) => {
 });
 
 app.use("/api", apiRouter);
+
+const frontendDistPath = path.resolve(env.backendRoot, "..", "dist");
+if (env.nodeEnv === "production" && fs.existsSync(frontendDistPath)) {
+  app.use(express.static(frontendDistPath));
+
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api")) {
+      next();
+      return;
+    }
+
+    res.sendFile(path.join(frontendDistPath, "index.html"));
+  });
+}
 
 app.use((error, _req, res, _next) => {
   const status = error.statusCode || 500;
