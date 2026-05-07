@@ -1,4 +1,4 @@
-import { spawn } from "child_process";
+import { spawnSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import { env } from "../config/env.js";
@@ -18,18 +18,25 @@ if (fs.existsSync(pidFile)) {
   }
 }
 
-const childProcess = spawn(
-  mysqlBinary,
-  [`--defaults-file=${env.mysqlRuntimeConfig}`, "--console"],
-  {
-    cwd: env.mysqlRuntimeBase,
-    detached: true,
-    stdio: "ignore",
-    windowsHide: false
-  }
+const startResult = spawnSync(
+  "powershell.exe",
+  [
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-Command",
+    [
+      "$ErrorActionPreference = 'Stop'",
+      `Start-Process -FilePath '${mysqlBinary}' -ArgumentList @('--defaults-file=${env.mysqlRuntimeConfig}', '--console') -WorkingDirectory '${env.mysqlRuntimeBase}' -WindowStyle Hidden`
+    ].join("; ")
+  ],
+  { stdio: "inherit", shell: false }
 );
 
-childProcess.unref();
+if (startResult.status !== 0) {
+  console.error("MySQL runtime failed to start.");
+  process.exit(startResult.status || 1);
+}
 
 console.log("MySQL runtime start command was sent.");
 console.log(`Binary: ${mysqlBinary}`);

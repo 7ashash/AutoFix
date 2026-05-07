@@ -1877,3 +1877,385 @@ body.site-shell-auth .checkout-container {
     padding: 44px 0 28px;
   }
 }
+
+/* Final responsive polish for common phone widths (320px -> 480px). */
+@media (max-width: 700px) {
+  html {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  body,
+  body.site-shell-page {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden !important;
+  }
+
+  body.site-shell-page * {
+    min-width: 0;
+  }
+
+  body.site-shell-page .site-header {
+    top: 0;
+    z-index: 2400;
+  }
+
+  body.site-shell-page .site-header__inner,
+  body.site-shell-page .site-footer__inner {
+    width: calc(100% - 18px);
+  }
+
+  body.site-shell-page .site-header__row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 7px;
+    min-height: 62px;
+    padding: 8px 0;
+  }
+
+  body.site-shell-page .site-brand {
+    gap: 8px;
+  }
+
+  body.site-shell-page .site-brand__mark,
+  body.site-shell-page .site-action-btn,
+  body.site-shell-page .site-menu-btn {
+    width: 38px;
+    height: 38px;
+    min-height: 38px;
+    border-radius: 12px;
+  }
+
+  body.site-shell-page .site-brand__title {
+    max-width: 25vw;
+    font-size: clamp(18px, 5.6vw, 22px);
+  }
+
+  body.site-shell-page .site-header__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+  }
+
+  body.site-shell-page .site-action-btn svg,
+  body.site-shell-page .site-menu-btn svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  body.site-shell-page .site-drawer,
+  body.site-shell-page .site-assistant {
+    inset: 0 0 0 auto;
+    width: 100dvw;
+    max-width: 100dvw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+  }
+
+  body.site-shell-page .site-assistant__header,
+  body.site-shell-page .site-drawer__header {
+    min-height: 64px;
+    padding: max(12px, env(safe-area-inset-top)) 14px 12px;
+    flex: 0 0 auto;
+  }
+
+  body.site-shell-page .site-assistant__title,
+  body.site-shell-page .site-drawer__title {
+    font-size: clamp(21px, 6vw, 26px);
+    letter-spacing: -0.04em;
+  }
+
+  body.site-shell-page .site-assistant__close,
+  body.site-shell-page .site-drawer__close {
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+  }
+
+  body.site-shell-page .site-assistant__body {
+    height: calc(100dvh - 64px);
+    padding: 10px 10px max(10px, env(safe-area-inset-bottom));
+    overflow: hidden;
+  }
+
+  body.site-shell-page .site-assistant__shell,
+  body.site-shell-page .site-assistant__app {
+    gap: 8px;
+    height: 100%;
+  }
+
+  body.site-shell-page .site-assistant__topbar {
+    flex: 0 0 auto;
+  }
+
+  body.site-shell-page .site-assistant__segment {
+    width: 100%;
+    border-radius: 16px;
+    padding: 4px;
+  }
+
+  body.site-shell-page .site-assistant__segment-btn {
+    min-height: 42px;
+    padding: 9px 8px;
+    border-radius: 13px;
+    font-size: 14px;
+  }
+
+  body.site-shell-page .site-assistant__vehicle-prompt {
+    flex: 0 0 auto;
+    padding: 10px;
+    border-radius: 16px;
+    gap: 10px;
+  }
+
+  body.site-shell-page .site-assistant__vehicle-prompt p {
+    font-size: 12.5px;
+    line-height: 1.55;
+  }
+
+  body.site-shell-page .site-assistant__vehicle-choice {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  body.site-shell-page .site-assistant__messages {
+    flex: 1 1 auto;
+    min-height: 0;
+    gap: 6px;
+    padding: 0 2px 2px 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body.site-shell-page .site-assistant__assistant-stack {
+    width: 92%;
+  }
+
+  body.site-shell-page .site-assistant__bubble {
+    max-width: 92%;
+    padding: 11px 12px;
+    border-radius: 17px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  body.site-shell-page .site-assistant__message--assistant .site-assistant__bubble {
+    max-width: 100%;
+  }
+
+  body.site-shell-page .site-assistant__bubble p {
+    line-height: 1.55;
+  }
+
+  body.site-shell-page .site-assistant__part-card {
+    grid-template-columns: 72px minmax(0, 1fr) !important;
+    gap: 9px;
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  body.site-shell-page .site-assistant__part-media {
+    min-height: 72px;
+    border-radius: 14px;
+  }
+
+  body.site-shell-page .site-assistant__part-body h4 {
+    font-size: 15px;
+  }
+
+  body.site-shell-page .site-assistant__part-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  body.site-shell-page .site-assistant__verify-card,
+  body.site-shell-page .site-assistant__insight-block {
+    padding: 11px;
+    border-radius: 16px;
+  }
+
+  body.site-shell-page .site-assistant__mode-dock {
+    flex: 0 0 auto;
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  body.site-shell-page .site-assistant__mode-pill {
+    min-height: 40px;
+    border-radius: 13px;
+    font-size: 12.5px;
+  }
+
+  body.site-shell-page .site-assistant__composer {
+    flex: 0 0 auto;
+    margin-top: 0;
+    padding: 7px;
+    border-radius: 16px;
+  }
+
+  body.site-shell-page .site-assistant__composer-row {
+    grid-template-columns: 48px minmax(0, 1fr);
+    direction: rtl;
+  }
+
+  body.site-shell-page .site-assistant__send--icon {
+    width: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 14px;
+    order: 0;
+  }
+
+  body.site-shell-page .site-assistant__textarea {
+    min-height: 48px;
+    max-height: 94px;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 13px;
+    order: 1;
+  }
+
+  body.site-shell-page .site-assistant__composer-actions,
+  body.site-shell-page .site-assistant__composer-hint,
+  body.site-shell-page .site-assistant__ghost {
+    display: none !important;
+  }
+
+  body.site-shell-page .site-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  body.site-shell-page .site-brand__title {
+    max-width: 20vw;
+  }
+
+  body.site-shell-page .site-action-btn,
+  body.site-shell-page .site-menu-btn,
+  body.site-shell-page .site-brand__mark {
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+  }
+
+  body.site-shell-page .site-assistant__body {
+    padding-inline: 8px;
+  }
+
+  body.site-shell-page .site-assistant__part-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.site-shell-page .site-assistant__part-media {
+    min-height: 118px;
+  }
+}
+
+@media (max-width: 700px) {
+  body.site-shell-page main,
+  body.site-shell-page section,
+  body.site-shell-page article {
+    max-width: 100%;
+  }
+
+  body.site-shell-page .hero,
+  body.site-shell-page .home-hero,
+  body.site-shell-page .vehicle-hero,
+  body.site-shell-page .catalog-hero,
+  body.site-shell-page .product-hero,
+  body.site-shell-page .verify-hero,
+  body.site-shell-page .cart-hero,
+  body.site-shell-page .checkout-hero,
+  body.site-shell-page .profile-hero,
+  body.site-shell-page .dealer-hero,
+  body.site-shell-page .admin-hero {
+    padding: 22px 16px !important;
+    border-radius: 24px !important;
+  }
+
+  body.site-shell-page h1 {
+    font-size: clamp(32px, 11vw, 46px) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.06em;
+    overflow-wrap: anywhere;
+  }
+
+  body.site-shell-page h2 {
+    font-size: clamp(24px, 8vw, 34px);
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+
+  body.site-shell-page p {
+    overflow-wrap: anywhere;
+  }
+
+  body.site-shell-page .brand-row,
+  body.site-shell-page .brands-row,
+  body.site-shell-page .brand-logos,
+  body.site-shell-page .models-list,
+  body.site-shell-page .years-list,
+  body.site-shell-page .parts-grid,
+  body.site-shell-page .products-grid,
+  body.site-shell-page .dealer-grid,
+  body.site-shell-page .cards-grid,
+  body.site-shell-page .cart-layout,
+  body.site-shell-page .checkout-layout,
+  body.site-shell-page .profile-layout,
+  body.site-shell-page .verify-layout,
+  body.site-shell-page .verify-workspace {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    width: 100%;
+  }
+
+  body.site-shell-page .part-card,
+  body.site-shell-page .product-card,
+  body.site-shell-page .model-card,
+  body.site-shell-page .dealer-card,
+  body.site-shell-page .cart-card,
+  body.site-shell-page .checkout-card,
+  body.site-shell-page .profile-card,
+  body.site-shell-page .verify-card,
+  body.site-shell-page .summary-card {
+    max-width: 100%;
+    border-radius: 20px !important;
+  }
+
+  body.site-shell-page form,
+  body.site-shell-page .form-grid,
+  body.site-shell-page .input-grid,
+  body.site-shell-page .field-grid,
+  body.site-shell-page .auth-form,
+  body.site-shell-page .checkout-form,
+  body.site-shell-page .profile-form,
+  body.site-shell-page .verify-form {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    width: 100%;
+  }
+
+  body.site-shell-page input,
+  body.site-shell-page select,
+  body.site-shell-page textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  body.site-shell-page .btn,
+  body.site-shell-page .primary-btn,
+  body.site-shell-page .secondary-btn,
+  body.site-shell-page .checkout-btn,
+  body.site-shell-page .cart-btn,
+  body.site-shell-page .verify-btn,
+  body.site-shell-page .profile-btn {
+    width: 100%;
+  }
+}

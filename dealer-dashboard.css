@@ -1023,3 +1023,182 @@
     max-width: none;
   }
 }
+
+@media (max-width: 700px) {
+  .dealer-dashboard-body {
+    overflow-x: hidden;
+  }
+
+  .dealer-dashboard-body *,
+  .dealer-dashboard-body *::before,
+  .dealer-dashboard-body *::after {
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  .dealer-dashboard-page {
+    width: calc(100vw - 18px);
+    margin: 18px auto 36px;
+  }
+
+  .dealer-hero {
+    padding: 22px 18px;
+    border-radius: 24px;
+    align-items: stretch;
+  }
+
+  .dealer-hero h1 {
+    font-size: clamp(31px, 11vw, 44px);
+    line-height: 0.98;
+    overflow-wrap: anywhere;
+  }
+
+  .dealer-hero p {
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+
+  .dealer-hero__actions,
+  .dealer-toolbar__controls,
+  .dealer-form__actions,
+  .dealer-card__tools,
+  .dealer-field__row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dealer-toolbar,
+  .dealer-card,
+  .dealer-kpi {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .dealer-toolbar__header h2,
+  .dealer-card h2 {
+    font-size: clamp(24px, 8vw, 32px);
+  }
+
+  .dealer-tabbar {
+    position: sticky;
+    top: 76px;
+    z-index: 20;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 18px;
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+  }
+
+  .dealer-tab {
+    min-height: 42px;
+    border-radius: 14px;
+    font-size: 12px;
+  }
+
+  .dealer-kpis,
+  .dealer-grid,
+  .dealer-grid--overview,
+  .dealer-grid--customers,
+  .dealer-grid--operations,
+  .dealer-grid--orders,
+  .dealer-grid--promotions,
+  .dealer-help-grid,
+  .dealer-form__grid,
+  .dealer-order-item__grid,
+  .dealer-checkbox-list--dense,
+  .dealer-inventory-toolbar,
+  .dealer-inventory-filters,
+  .dealer-products-layout,
+  .dealer-product-card__top,
+  .dealer-fitment-row {
+    grid-template-columns: 1fr !important;
+    width: 100%;
+  }
+
+  .dealer-card--span-2 {
+    grid-column: auto;
+  }
+
+  .dealer-products-editor-fixed {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-width: none;
+    transform: none !important;
+  }
+
+  .dealer-products-editor-fixed .dealer-product-editor-card,
+  .dealer-product-editor-card {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .dealer-inventory-list {
+    grid-template-columns: 1fr !important;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .dealer-product-card {
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .dealer-product-card__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dealer-product-card__actions .dealer-btn {
+    width: 100%;
+    flex: none;
+    min-height: 42px;
+    padding-inline: 10px;
+  }
+
+  .dealer-btn,
+  .dealer-link-btn {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .dealer-input--compact,
+  .dealer-field--inline {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .dealer-table,
+  .dealer-admin-table,
+  table {
+    min-width: 720px;
+  }
+
+  .dealer-table-wrap,
+  .dealer-card {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 420px) {
+  .dealer-tabbar {
+    top: 70px;
+  }
+
+  .dealer-product-card__top {
+    grid-template-columns: 68px minmax(0, 1fr) !important;
+  }
+
+  .dealer-product-card img {
+    width: 68px;
+    height: 68px;
+  }
+
+  .dealer-product-card__actions {
+    grid-template-columns: 1fr;
+  }
+}

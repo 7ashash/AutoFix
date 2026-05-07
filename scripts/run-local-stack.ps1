@@ -36,6 +36,25 @@ function Run-NpmScript {
   }
 }
 
+function Test-NpmScriptSuccess {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$ScriptName
+  )
+
+  Push-Location $projectRoot
+  try {
+    $previousErrorActionPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    & cmd.exe /c "npm.cmd run $ScriptName >NUL 2>NUL"
+    return ($LASTEXITCODE -eq 0)
+  }
+  finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+    Pop-Location
+  }
+}
+
 function Start-TerminalCommand {
   param(
     [Parameter(Mandatory = $true)]
@@ -44,29 +63,14 @@ function Start-TerminalCommand {
     [string]$Command
   )
 
-  $wrapped = @"
-`$Host.UI.RawUI.WindowTitle = '$Title'
-Set-Location '$projectRoot'
-$Command
-"@
+  $cmdLine = "title $Title && cd /d `"$projectRoot`" && $Command"
 
-  Start-Process -FilePath "powershell.exe" -ArgumentList @(
-    "-NoExit",
-    "-ExecutionPolicy", "Bypass",
-    "-Command", $wrapped
-  ) | Out-Null
+  Start-Process -FilePath "cmd.exe" -ArgumentList @("/k", $cmdLine) | Out-Null
 }
 
 Write-Host "Starting AutoFix local stack..." -ForegroundColor Green
 
-Push-Location $projectRoot
-try {
-  & npm.cmd run backend:db:runtime:ping *> $null
-  $mysqlAlreadyReady = ($LASTEXITCODE -eq 0)
-}
-finally {
-  Pop-Location
-}
+$mysqlAlreadyReady = Test-NpmScriptSuccess "backend:db:runtime:ping"
 
 if ($mysqlAlreadyReady) {
   Write-Host "MySQL runtime is already running." -ForegroundColor Yellow
@@ -77,21 +81,22 @@ else {
     Write-Host "AutoFixMySQL Windows service is installed but not required for local startup. Falling back to the project runtime." -ForegroundColor Yellow
   }
 
-  Run-NpmScript "backend:db:runtime:start"
+  $mysqlBinary = Join-Path $projectRoot "backend\mysql-runtime\mysql-8.0.45-winx64\bin\mysqld.exe"
+  $mysqlConfig = Join-Path $projectRoot "backend\mysql-runtime\my.ini"
+
+  if (-not (Test-Path $mysqlBinary)) {
+    throw "MySQL binary was not found at $mysqlBinary"
+  }
+
+  Start-TerminalCommand -Title "AutoFix MySQL" -Command "`"$mysqlBinary`" --defaults-file=`"$mysqlConfig`" --console"
+  Write-Host "MySQL window opened on port 3306." -ForegroundColor Yellow
 }
 
 $mysqlReady = $false
 for ($attempt = 1; $attempt -le 20; $attempt++) {
-  Push-Location $projectRoot
-  try {
-    & npm.cmd run backend:db:runtime:ping *> $null
-    if ($LASTEXITCODE -eq 0) {
-      $mysqlReady = $true
-      break
-    }
-  }
-  finally {
-    Pop-Location
+  if (Test-NpmScriptSuccess "backend:db:runtime:ping") {
+    $mysqlReady = $true
+    break
   }
 
   Start-Sleep -Milliseconds 800
